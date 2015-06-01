@@ -1,0 +1,18 @@
+table {
+	font-size: 2em;
+	margin: 1em;
+}
+
+td {
+	background: #eee;
+	padding: .5em;
+	text-align: center;
+}
+
+td.one {
+	background: #66CCFF;
+}
+
+td.two {
+	background: #FF8080;
+}
