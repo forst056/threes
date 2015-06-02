@@ -4,7 +4,7 @@
 
 $nextNum = 0;
 
-$board = array(1,1,0,6,2,0,0,12,0,12,3,24,0,48,0,48);
+$board = array(1,12,0,6,2,0,0,12,0,12,3,24,0,48,0,48);
 $boardSize = count($board);
 
 function printArray($array){
@@ -125,9 +125,19 @@ function move ($board, $input) {
 	global $board;
 	global $nextNum;
 
+	$canMove = false;
+
+	#
+	## Make a working clone of board
+	#
+
 	$array = $board;
 
-	generateNextNum($array);
+	#
+	## Make an array for TILE ENTRY
+	#
+
+	$tileEntry = array();
 
 	foreach ($array as $key=>$value) {
 
@@ -139,22 +149,25 @@ function move ($board, $input) {
 			case 'right':
 				$originPos = 15 - $key;
 				$refPos = $originPos - 1;
-				
+				$wallCheck = ($originPos % 4 === 0 ? true : false);
 				break;
 
 			case 'down':
-				$originPos = 15-$key;
+				$originPos = 15 - $key;
 				$refPos = $originPos - 4;
+				$wallCheck = (($originPos > 11) ? true : false);
 				break;
 
 			case 'left':
 				$originPos = $key;
 				$refPos = $originPos + 1;
+				$wallCheck = ($originPos % 4 === 0 ? true : false);
 				break;
 			
 			case 'up':
 				$originPos = $key;
 				$refPos = $originPos + 4;
+				$wallCheck = (($originPos > 11) ? true : false);
 				break;
 
 			default:
@@ -181,7 +194,7 @@ function move ($board, $input) {
 		## Check if ORIGINAL VALUE is blank
 		#
 
-		$blankCheck = ($originVal === 0 ? true : false);
+		$blankCheck = ($originVal === 0 && $refVal !==0 ? true : false);
 
 		#
 		## Combine? Check if ORIGINAL VALUE and REFERENCE VALUE can be combined
@@ -196,10 +209,10 @@ function move ($board, $input) {
 		$moveCheck = ($blankCheck || $comboCheck ? true : false);
 
 		#
-		## Check if last in column/row
+		## If movement occurs, allow for it
 		#
 
-		$wallCheck = ( ($key + 1) % 4 === 0 ? true : false);
+		$canMove = ($moveCheck ? true : $canMove);
 
 		#===============
 		# SET NEW VALUE
@@ -224,6 +237,12 @@ function move ($board, $input) {
 		else {
 			$newVal = $originVal;
 		}
+
+		#================
+		# SET TILE ENTRY
+		#================
+
+		$tileEntryPos = ( $moveCheck && $wallCheck ? array_push($tileEntry, $originPos) : false );
 
 		#===============
 		#WRITE TO ARRAY
@@ -252,8 +271,6 @@ function move ($board, $input) {
 
 			#...just bring in a blank space for now
 
-			#------fill me in-------
-
 			$array[$originPos] = 0;
 
 		}
@@ -265,20 +282,42 @@ function move ($board, $input) {
 		else {
 			$array[$originPos] = $originVal;
 		}
+
 	}
 
+	if (!$canMove) {
+		echo "<br/>You can't make that move!";
+		return;
+	}
+
+	#==============
+	# ADD NEW TILE
+	#==============
+
+	#
+	## Generate the next tile number
+	#
+
+	generateNextNum($array);
+
+	$tileSelect = array_rand($tileEntry);
+
+	$array[$tileEntryPos] = $nextNum;
+	
 	printArray($array, $input);
+	
 	$board = $array;
+	
 	return $board;
 
 }
 
 generateNextNum($board);
 printArray($board);
-move($board, 'left');
-generateNextNum($board);
 move($board, 'right');
 move($board, 'up');
-
+move($board, 'up');
+move($board, 'up');
+move($board, 'up');
 
 ?>
