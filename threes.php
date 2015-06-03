@@ -4,7 +4,7 @@
 
 $nextNum = 0;
 
-$board = array(1,12,0,6,2,0,0,12,0,12,3,24,0,48,0,48);
+$board = array(1,12,0,6,2,3,24,12,96,12,0,0,0,0,3,48);
 $boardSize = count($board);
 
 function printArray($array){
@@ -30,7 +30,7 @@ function printArray($array){
 		}
 
 		#
-		## Echo the array value
+		## Turn array into 4x4 grid in browser
 		#
 
 		if ($array[$i] === 0) {
@@ -154,7 +154,7 @@ function move ($board, $input) {
 			case 'right':
 				$originPos = 15 - $key;
 				$refPos = $originPos - 1;
-				$wallCheck = (($originPos+1) % 4 === 0 ? true : false);
+				$wallCheck = (($originPos) % 4 === 0 ? true : false);
 				break;
 
 			case 'down':
@@ -197,22 +197,28 @@ function move ($board, $input) {
 		#=============
 
 		#
-		## Check if ORIGINAL VALUE is blank
+		## Check if ORIGINAL VALUE is blank and REFERENCE VALUE is not blank
 		#
 
-		$blankCheck = ($originVal === 0 && $refVal !==0 ? true : false);
+		$blankCheck = ($originVal === 0 && $refVal !== 0 ? true : false);
+
+		#
+		## Check if ORIGINAL VALUE and REFERENCE VALUE are both blank
+		#
+
+		$doubleBlankCheck = ($originVal === 0 && ($refVal === 0 || $wallCheck) ? true : false);		
 
 		#
 		## Combine? Check if ORIGINAL VALUE and REFERENCE VALUE can be combined
 		#
 
-		$comboCheck = ( ($originVal === $refVal && $originVal > 2) || ($originVal + $refVal) === 3 ? true : false);
+		$comboCheck = ( ($originVal === $refVal && $originVal > 2) || (($originVal + $refVal === 3) && !$wallCheck) ? true : false);
 
 		#
 		## Move check? Check if movement occurs
 		#
 
-		$moveCheck = ($blankCheck || $comboCheck ? true : false);
+		$moveCheck = (($blankCheck && !$doubleBlankCheck) || $comboCheck ? true : false);
 
 		#
 		## If movement occurs, allow for it
@@ -302,6 +308,12 @@ function move ($board, $input) {
 		return;
 	}
 
+	#
+	## Reset can move every 4th move
+	#
+
+	$canMove = (($key+1) % 4 === 0 ? false : $canMove);
+
 	#==============
 	# ADD NEW TILE
 	#==============
@@ -320,6 +332,8 @@ function move ($board, $input) {
 	#===============
 	# FINISH HIM!!!
 	#===============
+
+	var_dump($tileEntryOptions);
 	
 	printArray($array, $input);
 	
@@ -331,6 +345,9 @@ function move ($board, $input) {
 
 generateNextNum($board);
 printArray($board);
-move($board, 'left');
-move($board, 'left');
+move($board, 'up');
+move($board, 'up');
+move($board, 'up');
+move($board, 'up');
+move($board, 'up');
 ?>
