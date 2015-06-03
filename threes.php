@@ -154,7 +154,7 @@ function move ($board, $input) {
 			case 'right':
 				$originPos = 15 - $key;
 				$refPos = $originPos - 1;
-				$wallCheck = ($originPos % 4 === 0 ? true : false);
+				$wallCheck = (($originPos+1) % 4 === 0 ? true : false);
 				break;
 
 			case 'down':
@@ -166,7 +166,7 @@ function move ($board, $input) {
 			case 'left':
 				$originPos = $key;
 				$refPos = $originPos + 1;
-				$wallCheck = ($originPos % 4 === 0 ? true : false);
+				$wallCheck = (($originPos+1) % 4 === 0 ? true : false);
 				break;
 			
 			case 'up':
@@ -187,9 +187,10 @@ function move ($board, $input) {
 
 		#
 		## Set the REFERENCE VALUE to be used (unless invalid and then set to 0)
+		## This check is only applicable for 'up' or 'down' input
 		#
 
-		$refVal = ( array_key_exists($refPos, $array) ? $array[$refPos] : -1);
+		$refVal = ( array_key_exists($refPos, $array) ? $array[$refPos] : 0);
 
 		#=============
 		# CHECK DATA
@@ -330,6 +331,6 @@ function move ($board, $input) {
 
 generateNextNum($board);
 printArray($board);
-move($board, 'up');
-move($board, 'up');
+move($board, 'left');
+move($board, 'left');
 ?>
