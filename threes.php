@@ -33,7 +33,12 @@ function printArray($array){
 		## Echo the array value
 		#
 
-		echo "<td class= " . $class . ">$array[$i]</td>";
+		if ($array[$i] === 0) {
+			echo "<td> </td>";
+		}
+		else {
+			echo "<td class= " . $class . ">$array[$i]</td>";
+		}
 
 		if ((($i+1)%4 === 0) && ($i>1)) {
 			echo "</tr><tr>";
@@ -137,7 +142,7 @@ function move ($board, $input) {
 	## Make an array for TILE ENTRY
 	#
 
-	$tileEntry = array();
+	$tileEntryOptions = array();
 
 	foreach ($array as $key=>$value) {
 
@@ -184,7 +189,7 @@ function move ($board, $input) {
 		## Set the REFERENCE VALUE to be used (unless invalid and then set to 0)
 		#
 
-		$refVal = ( array_key_exists($refPos, $array) ? $array[$refPos] : 0);
+		$refVal = ( array_key_exists($refPos, $array) ? $array[$refPos] : -1);
 
 		#=============
 		# CHECK DATA
@@ -242,7 +247,9 @@ function move ($board, $input) {
 		# SET TILE ENTRY
 		#================
 
-		$tileEntryPos = ( $moveCheck && $wallCheck ? array_push($tileEntry, $originPos) : false );
+		if ($moveCheck && $wallCheck) {
+			array_push($tileEntryOptions, $originPos);
+		}
 
 		#===============
 		#WRITE TO ARRAY
@@ -285,6 +292,10 @@ function move ($board, $input) {
 
 	}
 
+	#
+	## If move is invalid, tell user
+	#
+
 	if (!$canMove) {
 		echo "<br/>You can't make that move!";
 		return;
@@ -300,9 +311,14 @@ function move ($board, $input) {
 
 	generateNextNum($array);
 
-	$tileSelect = array_rand($tileEntry);
+	$tileSelect = rand (0, count($tileEntryOptions)-1);
+	$tile = $tileEntryOptions[$tileSelect];
+	$array[$tile] = $nextNum;
 
-	$array[$tileEntryPos] = $nextNum;
+
+	#===============
+	# FINISH HIM!!!
+	#===============
 	
 	printArray($array, $input);
 	
@@ -314,10 +330,6 @@ function move ($board, $input) {
 
 generateNextNum($board);
 printArray($board);
-move($board, 'right');
 move($board, 'up');
 move($board, 'up');
-move($board, 'up');
-move($board, 'up');
-
 ?>
