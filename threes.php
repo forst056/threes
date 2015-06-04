@@ -10,6 +10,9 @@ $board = $_SESSION['board'];
 
 $input = $_GET["input"];
 
+generateNextNum($board);
+move($board, $input);
+
 $nextNum = 0;
 $boardSize = count($board);
 
@@ -363,13 +366,11 @@ function move ($board, $input) {
 	printArray($array, $input);
 	
 	$board = $array;
-	
+
 	return $board;
 
 }
 
-generateNextNum($board);
-printArray($board);
 $_SESSION['board'] = $board;
 
 ?>
