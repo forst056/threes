@@ -6,6 +6,8 @@ session_start();
 
 <?php
 
+
+$board = ( isset($board) ? $board : array(1,12,0,6,2,3,24,12,96,12,0,0,0,0,3,48));
 $board = $_SESSION['board'];
 
 $input = $_GET["input"];
