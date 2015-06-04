@@ -1,10 +1,16 @@
+<?php
+session_start();
+?>
+
 <link rel="stylesheet" href="/css/threes.css">
 
 <?php
 
-$nextNum = 0;
+$board = $_SESSION['board'];
 
-$board = array(1,12,0,6,2,3,24,12,96,12,0,0,0,0,3,48);
+$input = $_GET["input"];
+
+$nextNum = 0;
 $boardSize = count($board);
 
 function printArray($array){
@@ -51,7 +57,7 @@ function printArray($array){
 	## Let the user know what her next number will be
 	#
 
-	echo "<p>Your next number will be: <strong>" . ($nextNum < 4 ? $nextNum : "x") . "</strong>";
+	echo "<p>Your next number will be: <strong>" . ($nextNum < 4 ? $nextNum : $nextNum) . "</strong>";
 }
 
 function generateNextNum ($array) {
@@ -61,48 +67,47 @@ function generateNextNum ($array) {
 	$value = $nextNum;
 
 	#
-	## Create an array for the unique board values
+	## Create an array...
 	#
 	
-	$boardValues = array_unique($array);
+	$boardValues = array(1, 2, 3);
 
-	#...make sure 1, 2, and 3 are in there
+	#...and get the quarter value of the largest number on the board...
 
-	array_push($boardValues, 1, 2, 3);
+	$maxVal = max($array)/4;
 
-	#...and then strip it of duplicates
+	#...then use that value to add all the possible values to the array
 
-	$boardValues = array_unique($boardValues);
+	$addVal = 1;
 
-	#...sort it ascending to ensure proper key/val
-
-	sort ($boardValues);
-
-	#...and then get rid of that pesky 0
-
-	array_shift($boardValues);
+	while (($addVal < $maxVal) && ($maxVal > 3)) {
+		$addVal = max($boardValues)*2;
+		array_push($boardValues, $addVal);
+	}
 
 	#
-	## Get a random number in the array
+	## Get a random number in the array...
 	#
 
 	#...by first creating a random val between 0 and the array length
 
-	$randVal = rand ( 0, count($boardValues)-1 );
+	$chance = rand(0,100);
 
-	#...and then getting the value at that random numbers key in array
+	if ($chance <= 50) {
+		$randVal = rand(0, 1);
+	}
+	
+	else if ($chance <= 90) {
+		$randVal = 2;
+	}
+	
+	else {
+		$randVal = rand ( 0, count($boardValues)-1 );
+	}
+
+	#...and then getting the value at that random number's key in array
 
 	$getRandArrVal = $boardValues[$randVal];
-
-	
-
-	### \/ for testing only \/ ###
-
-	# print_r($getRandArrVal);
-	# var_dump($boardValues);
-
-	### /\ for testing only /\ ###
-
 
 	# -------- please fill me in -------- #
 
@@ -143,6 +148,10 @@ function move ($board, $input) {
 	#
 
 	$tileEntryOptions = array();
+
+	#================
+	# START THE LOOP
+	#/\/\/\/\/\/\/\/\
 
 	foreach ($array as $key=>$value) {
 
@@ -200,19 +209,19 @@ function move ($board, $input) {
 		## Check if ORIGINAL VALUE is blank and REFERENCE VALUE is not blank
 		#
 
-		$blankCheck = ($originVal === 0 && $refVal !== 0 ? true : false);
+		$blankCheck = ($originVal < 1 && $refVal > 0 ? true : false);
 
 		#
 		## Check if ORIGINAL VALUE and REFERENCE VALUE are both blank
 		#
 
-		$doubleBlankCheck = ($originVal === 0 && ($refVal === 0 || $wallCheck) ? true : false);		
+		$doubleBlankCheck = ($originVal < 1 && ($refVal === 0 || $wallCheck) ? true : false);		
 
 		#
 		## Combine? Check if ORIGINAL VALUE and REFERENCE VALUE can be combined
 		#
 
-		$comboCheck = ( ($originVal === $refVal && $originVal > 2) || (($originVal + $refVal === 3) && !$wallCheck) ? true : false);
+		$comboCheck = ( ($originVal === $refVal && $originVal > 2) || (($originVal + $refVal === 3 && $originVal !== 3) && !$wallCheck) ? true : false);
 
 		#
 		## Move check? Check if movement occurs
@@ -244,43 +253,44 @@ function move ($board, $input) {
 			$newVal = $originVal + $refVal;
 		}
 
+		#...otherwise if it can combine, combine it
+
+		else if ($doubleBlankCheck) {
+			$newVal = 0;
+		}
+
 		#...otherwise keep it the same
 
 		else {
 			$newVal = $originVal;
 		}
 
-		#================
-		# SET TILE ENTRY
-		#================
-
-		if ($moveCheck && $wallCheck) {
-			array_push($tileEntryOptions, $originPos);
-		}
-
 		#===============
 		#WRITE TO ARRAY
 		#===============
 
-		#
-		## If a number does move and it's not at the end of the line...
-		#
+		# If there are two blanks in a row, don't move
 
-		if ($moveCheck && !$wallCheck) {
+		if ($doubleBlankCheck && !$wallCheck) {
+			$array[$refPos] = $originVal;
+			$array[$originPos] = 0;
+		}
 
-			#...enter its new value into the array
+		#...otherwise, If a number does move and it's not at the end of the line...
+
+		else if ($moveCheck && !$wallCheck) {
+
+			#...enter its new value into the array...
 
 			$array[$originPos] = $newVal;
 
-			#...and clear out room before it for others to cascade
+			#...and clear out room before it so others can cascade
 
-			$array[$refPos] = 0;
+			$array[$refPos] = -1;
 		}
 
-		#
-		## But if it is at the end of the line
-		#
-
+		#...but if it is at the end of the line...
+		
 		else if ($moveCheck && $wallCheck) {
 
 			#...just bring in a blank space for now
@@ -289,30 +299,34 @@ function move ($board, $input) {
 
 		}
 
-		#
-		## Otherwise don't fuck with it!
-		#
-
+		#...otherwise don't fuck with it!
+		
 		else {
 			$array[$originPos] = $originVal;
 		}
 
+		#========================
+		# CHECK FOR ENTRY POINTS
+		#========================
+
+		if ($originVal === -1 && $wallCheck) {
+			array_push($tileEntryOptions, $originPos);
+		}
+
 	}
 
-	#
-	## If move is invalid, tell user
-	#
+	#/\/\/\/\/\/\/\
+	# END THE LOOP
+	#==============
+
+	#===================
+	# CHECK IF CAN MOVE
+	#===================
 
 	if (!$canMove) {
 		echo "<br/>You can't make that move!";
 		return;
 	}
-
-	#
-	## Reset can move every 4th move
-	#
-
-	$canMove = (($key+1) % 4 === 0 ? false : $canMove);
 
 	#==============
 	# ADD NEW TILE
@@ -324,16 +338,27 @@ function move ($board, $input) {
 
 	generateNextNum($array);
 
+	#...then make a random choice from available options
+
 	$tileSelect = rand (0, count($tileEntryOptions)-1);
+
+	#...choose that tile on the board
+
 	$tile = $tileEntryOptions[$tileSelect];
+
+	#...put that tile on the board
+
 	$array[$tile] = $nextNum;
 
+	#...and clear board of markers
+
+	foreach ($array as $key => $value) {
+		$array[$key] = ($value === -1 ? 0 : $value);
+	}
 
 	#===============
 	# FINISH HIM!!!
 	#===============
-
-	var_dump($tileEntryOptions);
 	
 	printArray($array, $input);
 	
@@ -345,9 +370,13 @@ function move ($board, $input) {
 
 generateNextNum($board);
 printArray($board);
-move($board, 'up');
-move($board, 'up');
-move($board, 'up');
-move($board, 'up');
-move($board, 'up');
+$_SESSION['board'] = $board;
+
 ?>
+
+<form action="threes.php" method="GET">
+	<input type="submit" action="/threes.php" name="input" value="up" />
+	<input type="submit" action="/threes.php" name="input" value="left" />
+	<input type="submit" action="/threes.php" name="input" value="right" />
+	<input type="submit" action="/threes.php" name="input" value="down" />
+</form>
