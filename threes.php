@@ -37,7 +37,7 @@ var_dump($board);
 	<input type="submit" action="/threes.php" name="input" value="left" />
 	<input type="submit" action="/threes.php" name="input" value="right" />
 	<input type="submit" action="/threes.php" name="input" value="down" />
-	<input type="submit" action="/threes.php" name="seedBoard" value="new game" />
-	<input type="submit" action="/threes.php" name="json_decode" value="test" />
+	<input type="submit" action="/threes.php" name="seedBoard" value="seedBoard" />
+	<input type="submit" action="/threes.php" name="json_decode" value="json_decode" />
 </form>
 </body>

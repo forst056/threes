@@ -1,5 +1,7 @@
 <?php
 
+$input = $_GET['input'];
+
 //======================
 // FUNCTION: SEED BOARD
 //======================
@@ -300,8 +302,7 @@ function move ($board, $input) {
 	//
 
 	if (!$canMove) {
-		echo "<br/>You can't make that move!";
-		return;
+		return false;
 	}
 
 	//
@@ -333,8 +334,6 @@ function move ($board, $input) {
   //
 	// FINISH HIM!!!
   //
-
-	printArray($array);
 
 	$board = $array;
 	return $board;
