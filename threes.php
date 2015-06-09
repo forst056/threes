@@ -4,7 +4,34 @@
 
 $nextNum = 0;
 
-$board = array(1,12,0,6,2,0,0,12,0,12,3,24,0,48,0,48);
+// testing
+
+// $board = array(1,12,0,6,2,0,0,12,0,12,3,24,0,48,0,48);
+
+$board = json_decode($_POST['board']);
+
+if (isset($_POST['action'])) {
+    switch ($_POST['action']) {
+        case 'up':
+        	echo "success";
+            move($board, 'up');
+            break;
+        case 'right':
+            move($board, 'right');
+            break;
+        case 'left':
+            move($board, 'left');
+            break;
+        case 'down':
+            move($board, 'down');
+            break;
+        default:
+        	break;
+    }
+}
+
+
+
 $boardSize = count($board);
 
 function printArray($array){
@@ -322,14 +349,10 @@ function move ($board, $input) {
 	
 	printArray($array, $input);
 	
-	$board = $array;
+	$board = json_encode($array);
 	
 	return $board;
 
 }
 
-generateNextNum($board);
-printArray($board);
-move($board, 'up');
-move($board, 'up');
 ?>
