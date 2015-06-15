@@ -16,6 +16,7 @@ if (isset($input)) {
 			break;
 		case 'down':
 			move($board, $input);
+			break;
 		case 'left':
 			move($board, $input);
 			break;
