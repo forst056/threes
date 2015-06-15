@@ -1,6 +1,6 @@
 <?php
 
-$input = $_GET['input'];
+$input = $_POST['action'];
 
 //======================
 // FUNCTION: SEED BOARD
@@ -138,7 +138,7 @@ function generateNextNum ($array) {
 //================
 
 function move ($board, $input) {
-	global $board;
+	global $board = json_decode($_POST['board']);
 	global $nextNum;
 	$canMove = false;
 

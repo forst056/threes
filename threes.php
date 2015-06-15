@@ -4,17 +4,23 @@
 <script>
 $(document).ready(function(){
     $('.button').click(function(){
-        var clickBtnValue = $(this).val();
-        var ajaxurl = 'library.php',
-        data =  {'action': clickBtnValue};
+        var clickBtnValue = $(this).name(),
+        val = $(this).value(),
+        url = 'library.php',
+        board = JSON.stringify('board'),
+        data =  {
+          'action': clickBtnValue,
+          'board': board
+          };
 
-        $.post(ajaxurl, data, function (response) {
+        $.post(url, data, function (response) {
             // Response div goes here.
             alert("action performed successfully");
         });
     });
 
 });
+
 </script>
 </head>
 
@@ -28,16 +34,15 @@ $(document).ready(function(){
 
 // $nextNum = 0;
 // $boardSize = count($board);
-var_dump($board);
+// var_dump($board);
 
 ?>
 
-<form action="threes.php" method="GET">
-	<input type="submit" action="/threes.php" name="input" value="up" />
-	<input type="submit" action="/threes.php" name="input" value="left" />
-	<input type="submit" action="/threes.php" name="input" value="right" />
-	<input type="submit" action="/threes.php" name="input" value="down" />
-	<input type="submit" action="/threes.php" name="seedBoard" value="seedBoard" />
-	<input type="submit" action="/threes.php" name="json_decode" value="json_decode" />
+<form action="threes.php" method="POST">
+	<input type="submit" action="/threes.php" name="move" value="up" />
+	<input type="submit" action="/threes.php" name="move" value="left" />
+	<input type="submit" action="/threes.php" name="move" value="right" />
+	<input type="submit" action="/threes.php" name="move" value="down" />
+	<input type="submit" action="/threes.php" name="seedBoard" value="new game" />
 </form>
 </body>
