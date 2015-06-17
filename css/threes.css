@@ -16,3 +16,28 @@ td.one {
 td.two {
 	background: #FF8080;
 }
+
+/*span {
+	background: #eee;
+	font-size: 2em;
+	padding: .5em;
+	text-align: center;
+}*/
+
+/*.tbl {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+	background: #eee;
+}*/
+
+.cell {
+	background: #eee;
+	font-size: 2em;
+	display: inline-block;
+	/*vertical-align: middle;*/
+	text-align: center;
+	border: .03175em solid #999;
+	width: 1.25em;
+	padding: .5em;
+}
