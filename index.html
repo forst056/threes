@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<link rel="stylesheet" href="/css/threes.css">
+<script type="text/javascript">var board = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)</script>
+<script type='text/javascript' src='jquery-1.11.3.js'></script>
+<script type="text/javascript">
+
+printArray(board);
+seedBoard(48);
+
+function move(board, input) {
+
+}
+
+function seedBoard(maxVal) {
+	var emptySet = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+	board = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+	
+	shuffleArray(emptySet);
+	
+	// Seed random tiles on the board with 1s, 2s, or 3s
+	for (var i = 0; i < 8; i++) {
+		board[emptySet[i]] = Math.floor(Math.random(1,3) * 3 + 1);
+	}
+
+	// Seed the last tile with the maxVal
+	board[15] = maxVal;
+
+	// Print the board
+	replaceArray(board);
+}
+
+function replaceArray() {
+	for (i=0; i<16; i++) {
+		if (board[i] === 0) {
+			document.getElementById("cell" + i).innerHTML = "<br />";
+		}
+		else {
+			document.getElementById("cell" + i).innerHTML = board[i];
+		}
+		document.getElementById("cell" + i).className = "cell";
+
+		var id = document.getElementById("cell" + i);
+		switch (board[i]) {
+			case 0:
+				break;
+			case 1:
+				id.className = id.className + " one";
+				break;
+			case 2:
+				id.className = id.className + " two";
+				break;
+			default:
+				id.className = id.className + " number";
+				break;
+
+		}
+	}
+}
+
+function printArray(array) {
+	document.write("<div class='row'>");
+	for (i=0; i<16; i++) {
+		if (i%4 == 0 && i > 1) {
+			document.write("</div><div class='row'>");
+		}
+		if (array[i] === 0) {
+			document.write("<span class='cell' id=cell" + i + "><br /></span>");
+		}
+		else {
+			document.write("<span class='cell' id=cell" + i + ">" + array[i] + "</span>");
+		}
+
+		var id = document.getElementById("cell" + i);
+		switch (array[i]) {
+			case 0:
+				break;
+			case 1:
+				id.className = id.className + " one";
+				break;
+			case 2:
+				id.className = id.className + " two";
+				break;
+			default:
+				id.className = id.className + " number";
+				break;
+
+		}
+	}
+	document.write("</div>");
+}
+
+function shuffleArray(array) {
+	var i = array.length - 1;
+	for (; i > 0; i--) {
+		var j = Math.floor(Math.random() * (i + 1));
+		var temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	return array;
+}
+
+</script>
+</head>
+
+<body>
+<div class="buttons">
+<div class="btn-grp">
+<button type="button" name="up" value="up" onclick="move(board,'up')">Up</button>
+<button type="button" name="right" value="right" onclick="move(board,'right')">Right</button>
+<button type="button" name="down" value="down" onclick="move(board,'down')">Down</button>
+<button type="button" name="left" value="left" onclick="move(board,'left')">Left</button>
+</div>
+<div class="new-game">
+<button type="button" name="seedBoard" value="seedBoard" onclick="seedBoard(48)">New Game</button>
+</div>
+</div>
+</body>
+</html>
