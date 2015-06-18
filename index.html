@@ -34,15 +34,28 @@ function seedBoard(maxVal) {
 
 function replaceArray() {
 	for (i=0; i<16; i++) {
-		document.getElementById("cell" + i).innerHTML = board[i];
+		if (board[i] === 0) {
+			document.getElementById("cell" + i).innerHTML = "<br />";
+		}
+		else {
+			document.getElementById("cell" + i).innerHTML = board[i];
+		}
 		document.getElementById("cell" + i).className = "cell";
 
 		var id = document.getElementById("cell" + i);
-		if (board[i] === 1) {
-			id.className = id.className + " one";
-		}
-		else if (board[i] === 2) {
-			id.className = id.className + " two";
+		switch (board[i]) {
+			case 0:
+				break;
+			case 1:
+				id.className = id.className + " one";
+				break;
+			case 2:
+				id.className = id.className + " two";
+				break;
+			default:
+				id.className = id.className + " number";
+				break;
+
 		}
 	}
 }
@@ -61,11 +74,19 @@ function printArray(array) {
 		}
 
 		var id = document.getElementById("cell" + i);
-		if (array[i] === 1) {
-			id.className = id.className + " one";
-		}
-		else if (array[i] === 2) {
-			id.className = id.className + " two";
+		switch (array[i]) {
+			case 0:
+				break;
+			case 1:
+				id.className = id.className + " one";
+				break;
+			case 2:
+				id.className = id.className + " two";
+				break;
+			default:
+				id.className = id.className + " number";
+				break;
+
 		}
 	}
 	document.write("</div>");
