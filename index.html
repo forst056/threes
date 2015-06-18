@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<link rel="stylesheet" href="/css/threes.css">
+<script type="text/javascript">var board = new Array(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)</script>
+<script type='text/javascript' src='jquery-1.11.3.js'></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('button').click(function() {
+			console.log($(this).val());
+			var clickBtnName = $(this).val(),
+			ajaxurl = 'library.php',
+			data = {
+				action: clickBtnName,
+				board : JSON.stringify(board)
+			};
+			$.post(ajaxurl, data, function(array) {
+				board = array;
+				console.log(board);
+			});
+		});
+	});
+</script>
+</head>
+<body>
+
+<table>
+<tbody>
+<tr>
+<script language="javascript" type="text/javascript">
+
+for (i=0; i<16; i++) {
+	if (i%4 == 0 && i > 1) {document.write("</tr><tr>")};
+	document.write("<td>" + board[i] + "</td>");
+}
+
+</script>
+<tr>
+</tbody>
+</table>
+
+<button type="button" name="up" value="up">Up</button>
+<button type="button" name="right" value="right">Right</button>
+<button type="button" name="down" value="down">Down</button>
+<button type="button" name="left" value="left">Left</button>
+<button type="button" name="seedBoard" value="seedBoard">New Game</button>
+<!-- <form action="/library.php" method="POST">
+<input type="submit" class="button" name="up" value="up" />
+<input type="submit" class="button" name="right" value="right" />
+<input type="submit" class="button" name="down" value="down" />
+<input type="submit" class="button" name="left" value="left" />
+<input type="submit" class="button" name="seedBoard" value="seedBoard" /> -->
+</body>
+</html>
