@@ -9,13 +9,26 @@ td {
 	text-align: center;
 }
 
-td.one {
-	background: #66CCFF;
+span, button {
+	font-family: 'Helvetica Neue', sans-serif;
 }
 
-td.two {
-	background: #FF8080;
+span.one {
+	background: #66CCFF;
+	color: white;
 }
+
+span.two {
+	background: #FF8080;
+	color: white;
+}
+
+button {
+	background: #eee;
+	border-radius: .25em;
+	font-size: 1em;
+}
+
 
 /*span {
 	background: #eee;
@@ -31,13 +44,23 @@ td.two {
 	background: #eee;
 }*/
 
+.row {
+	clear: both;
+}
+
+.btn-grp {
+	clear: both;
+	padding: 1em 0;
+}
+
 .cell {
 	background: #eee;
+	border: .03175em solid white;
+	border-radius: .175em;
+	display: block;
+	float: left;
 	font-size: 2em;
-	display: inline-block;
-	/*vertical-align: middle;*/
+	padding: .5em .25em;
 	text-align: center;
-	border: .03175em solid #999;
 	width: 1.25em;
-	padding: .5em;
 }

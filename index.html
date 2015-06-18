@@ -32,10 +32,27 @@ function seedBoard(maxVal) {
 }
 
 function printArray(array) {
+	document.write("<div class='row'>");
 	for (i=0; i<16; i++) {
-		if (i%4 == 0 && i > 1) {document.write("<br />")};
-		document.write("<span class='cell' id=" + i + ">" + board[i] + "</span>");
+		if (i%4 == 0 && i > 1) {
+			document.write("</div><div class='row'>")
+		}
+		if (board[i] === 0) {
+			document.write("<span class='cell' id=0><br /></span>")
+		}
+		else {
+			document.write("<span class='cell' id=" + i + ">" + board[i] + "</span>");
+		}
+
+		var id = document.getElementById(i);
+		if (board[i] === 1) {
+			id.className = id.className + " one";
+		}
+		else if (board[i] === 2) {
+			id.className = id.className + " two";
+		}
 	}
+	document.write("</div>");
 }
 
 function shuffleArray(array) {
@@ -53,9 +70,14 @@ function shuffleArray(array) {
 </head>
 
 <body>
-
+<div class="btn-grp">
 <button type="button" name="up" value="up" onclick="move(board,'up')">Up</button>
+<button type="button" name="right" value="right" onclick="move(board,'right')">Right</button>
+<button type="button" name="down" value="down" onclick="move(board,'down')">Down</button>
+<button type="button" name="left" value="left" onclick="move(board,'left')">Left</button>
+</div>
+<div>
 <button type="button" name="seedBoard" value="seedBoard" onclick="seedBoard(48)">New Game</button>
-
+</div>
 </body>
 </html>
