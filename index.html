@@ -3,10 +3,11 @@
 <head>
 	<title></title>
 <link rel="stylesheet" href="/css/threes.css">
-<script type="text/javascript">var board = new Array(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)</script>
+<script type="text/javascript">var board = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)</script>
 <script type='text/javascript' src='jquery-1.11.3.js'></script>
 <script type="text/javascript">
 
+printArray(board);
 seedBoard(48);
 
 function move(board, input) {
@@ -15,6 +16,7 @@ function move(board, input) {
 
 function seedBoard(maxVal) {
 	var emptySet = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+	board = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 	
 	shuffleArray(emptySet);
 	
@@ -27,28 +29,42 @@ function seedBoard(maxVal) {
 	board[15] = maxVal;
 
 	// Print the board
-	printArray(board);
-	return board;
+	replaceArray(board);
+}
+
+function replaceArray() {
+	for (i=0; i<16; i++) {
+		document.getElementById("cell" + i).innerHTML = board[i];
+		document.getElementById("cell" + i).className = "cell";
+
+		var id = document.getElementById("cell" + i);
+		if (board[i] === 1) {
+			id.className = id.className + " one";
+		}
+		else if (board[i] === 2) {
+			id.className = id.className + " two";
+		}
+	}
 }
 
 function printArray(array) {
 	document.write("<div class='row'>");
 	for (i=0; i<16; i++) {
 		if (i%4 == 0 && i > 1) {
-			document.write("</div><div class='row'>")
+			document.write("</div><div class='row'>");
 		}
-		if (board[i] === 0) {
-			document.write("<span class='cell' id=0><br /></span>")
+		if (array[i] === 0) {
+			document.write("<span class='cell' id=cell" + i + "><br /></span>");
 		}
 		else {
-			document.write("<span class='cell' id=" + i + ">" + board[i] + "</span>");
+			document.write("<span class='cell' id=cell" + i + ">" + array[i] + "</span>");
 		}
 
-		var id = document.getElementById(i);
-		if (board[i] === 1) {
+		var id = document.getElementById("cell" + i);
+		if (array[i] === 1) {
 			id.className = id.className + " one";
 		}
-		else if (board[i] === 2) {
+		else if (array[i] === 2) {
 			id.className = id.className + " two";
 		}
 	}
@@ -70,14 +86,16 @@ function shuffleArray(array) {
 </head>
 
 <body>
+<div class="buttons">
 <div class="btn-grp">
 <button type="button" name="up" value="up" onclick="move(board,'up')">Up</button>
 <button type="button" name="right" value="right" onclick="move(board,'right')">Right</button>
 <button type="button" name="down" value="down" onclick="move(board,'down')">Down</button>
 <button type="button" name="left" value="left" onclick="move(board,'left')">Left</button>
 </div>
-<div>
+<div class="new-game">
 <button type="button" name="seedBoard" value="seedBoard" onclick="seedBoard(48)">New Game</button>
+</div>
 </div>
 </body>
 </html>
