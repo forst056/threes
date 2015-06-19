@@ -7,8 +7,14 @@
 <script type='text/javascript' src='jquery-1.11.3.js'></script>
 <script type="text/javascript">
 
+// THIS NEEDS WORK
+
 Array.prototype.max = function() {
-  return Math.max.apply(null, this);
+	var maxVal = 3;
+  $(this).each(function(key, value) {
+		maxVal = (value > maxVal ? value : maxVal);
+	return maxVal;
+	});
 };
 
 printArray(board);
@@ -110,10 +116,10 @@ function shuffleArray(array) {
 
 function genNextNum (array) {
 	var nextNum, randVal,
-	maxVal = array.max.apply(null, array) / 4,
+	maxVal = array.max / 4,
 	addVal = 3,
 	boardValues = [1,2,3],
-	chance = Math.floor(Math.random()*10 + 1),
+	chance = Math.floor(Math.random()*10 + 1);
 
 	while ((addVal < maxVal) && (maxVal > 3)) {
 		addVal = boardValues.max * 2;
