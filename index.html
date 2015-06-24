@@ -3,23 +3,22 @@
 <head>
 	<title></title>
 <link rel="stylesheet" href="/css/threes.css">
-<script type="text/javascript">var board = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)</script>
+<script type="text/javascript">var board = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,48), nextNum = 3;</script>
 <script type='text/javascript' src='jquery-1.11.3.js'></script>
 <script type="text/javascript">
 
-// THIS NEEDS WORK
-
-Array.prototype.max = function() {
-	var maxVal = 3;
-  $(this).each(function(key, value) {
-		maxVal = (value > maxVal ? value : maxVal);
-	return maxVal;
-	});
-};
-
 printArray(board);
 seedBoard(48);
-genNextNum(board);
+nextNum = genNextNum(board);
+
+//--------------
+// FUNCTIONS
+//--------------
+
+function max(array) {
+	var maxVal = Math.max.apply(null, array);
+	return maxVal;
+};
 
 function move(board, input) {
 
@@ -39,11 +38,31 @@ function seedBoard(maxVal) {
 	// Seed the last tile with the maxVal
 	array[15] = maxVal;
 
+	// Generate the next number
+	nextNum = genNextNum(board);
+
 	// Print the board
 	replaceArray(array);
 }
 
 function replaceArray(array) {
+	var nextUp = document.getElementById("nextNum");
+	nextUp.className = "nextNum cell";
+	switch (nextNum) {
+		case 0:
+			break;
+		case 1:
+			nextUp.className = nextUp.className + " one";
+			break;
+		case 2:
+			nextUp.className = nextUp.className + " two";
+			break;
+		default:
+			nextUp.className = nextUp.className + " number";
+			break;
+		}
+		document.getElementById("nextNum").innerHTML = nextNum;
+
 	for (i=0; i<16; i++) {
 		if (array[i] === 0) {
 			document.getElementById("cell" + i).innerHTML = "<br />";
@@ -66,12 +85,12 @@ function replaceArray(array) {
 			default:
 				id.className = id.className + " number";
 				break;
-
 		}
 	}
 }
 
 function printArray(array) {
+	document.write("<div class='upNext row'><span class='cell' id='nextNum'>" + nextNum + "</span></div>");
 	document.write("<div class='row'>");
 	for (i=0; i<16; i++) {
 		if (i%4 == 0 && i > 1) {
@@ -115,32 +134,37 @@ function shuffleArray(array) {
 }
 
 function genNextNum (array) {
-	var nextNum, randVal,
-	maxVal = array.max / 4,
+	var nextNum, randPos,
+	maxVal = max(array),
 	addVal = 3,
 	boardValues = [1,2,3],
-	chance = Math.floor(Math.random()*10 + 1);
+	chance = Math.floor(Math.random()*100 + 1);
 
 	while ((addVal < maxVal) && (maxVal > 3)) {
-		addVal = boardValues.max * 2;
+		addVal *= 2;
 		boardValues.push(addVal);
 	}
 
+	var randPos = Math.floor(Math.random() * (boardValues.length-4)) + 2;
+
 	if (chance <= 25) {
-		randVal = 0;
+		nextNum = 1;
 	}
 	else if (chance <= 50) {
-		randVal = 1;
+		nextNum = 2;
 	}
 	else if (chance <= 90) {
-		randVal = 2;
+		nextNum = 3;
 	}
 	else {
-		randVal = Math.floor(Math.random() * array.count() + 1);
+		nextNum = boardValues[randPos];
 	}
-	console.log("MaxVal: " + maxVal + "addVal: " + addVal + "ArrayMax: " + array.max);
-	console.log(randVal);
 
+	console.log("MaxVal: " + maxVal + " addVal: " + addVal + " Chance: " + chance + " ArrayMax: " + max(array));
+	console.log(boardValues + " Count: " + boardValues.length);
+	console.log("Array pos: " + randPos);
+	console.log("NextNum: " + nextNum);
+	return nextNum;
 }
 
 </script>
