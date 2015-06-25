@@ -40,15 +40,15 @@ function move(input) {
 			case 'down':
 				origPos = 15 - key;
 				refPos = origPos - 4;
-				wallCheck = ((origPos > 11) ? true : false);
+				wallCheck = ((origPos < 4) ? true : false);
 				break;
 
 			case 'left':
 				origPos = key;
 				refPos = origPos + 1;
-				wallCheck = ((origPos+1) % 4 === 0 ? true : false);
+				wallCheck = (refPos % 4 === 0 ? true : false);
 				break;
-			
+
 			case 'up':
 				origPos = key;
 				refPos = origPos + 4;
@@ -121,10 +121,25 @@ function move(input) {
 		if (origVal === -1 && wallCheck) {
 			tileEntryOptions.push(origPos);
 		}
-		console.log(tileEntryOptions);
 	});
 
+	if (!canMove) {
+		return false;
+	}
 
+	// Sanitize array of -1 values
+
+	array.forEach (function(value, key) {
+		array[key] = (value === -1 ? 0 : value);
+	});
+
+		var nextOptCount = tileEntryOptions.length;
+	var tileSelect = Math.floor(Math.random() * nextOptCount);
+	array[tileSelect] = nextNum;
+	nextNum = genNextNum(array);
+	console.log(tileEntryOptions);
+	console.log(array);
+	replaceArray(array);
 }
 
 function seedBoard(maxVal) {
