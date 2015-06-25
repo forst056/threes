@@ -5,7 +5,11 @@ button {
 	font-family: 'Helvetica Neue', sans-serif;
 	font-size: 1.5em;
 }
-
+div.board {
+	background: #eee;
+	width: 320px;
+	height: 480px;
+}
 div.buttons {
 	width: 18.25em;
 }
@@ -19,6 +23,13 @@ span {
 	color: #555;
 	font-family: 'Helvetica Neue', sans-serif;
 	font-weight: bold;
+}
+
+.cell {
+	background: #ccc;
+	border-radius: 4px;
+	width: 60px;
+	height: 100px;
 }
 
 span.one {
@@ -40,7 +51,21 @@ span.two {
 	padding: 1em 0;
 }
 
-.cell {
+#cell0 {
+	background: red;
+	position: absolute;
+	left: 10px
+	top: 10px;
+}
+
+#cell1 {
+	background: blue;
+	position: absolute;
+	left: 80px
+	top: 10px;
+}
+
+/*.cell {
 	background: #eee;
 	border: .03175em solid white;
 	border-radius: .175em;
@@ -50,4 +75,4 @@ span.two {
 	padding: .75em .5em;
 	text-align: center;
 	width: 1.25em;
-}
+}*/
