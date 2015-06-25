@@ -15,6 +15,29 @@ seedBoard(48);
 // FUNCTIONS
 //--------------
 
+$(document).keydown(function(e) {
+    switch(e.which) {
+        case 37: // left
+				move('left');
+        break;
+
+        case 38: // up
+				move('up');
+        break;
+
+        case 39: // right
+				move('right');
+        break;
+
+        case 40: // down
+				move('down');
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+
 function max(array) {
 	var maxVal = Math.max.apply(null, array);
 	return maxVal;
@@ -133,13 +156,14 @@ function move(input) {
 		array[key] = (value === -1 ? 0 : value);
 	});
 
-		var nextOptCount = tileEntryOptions.length;
+	var nextOptCount = tileEntryOptions.length;
 	var tileSelect = Math.floor(Math.random() * nextOptCount);
 	array[tileSelect] = nextNum;
 	nextNum = genNextNum(array);
 	console.log(tileEntryOptions);
 	console.log(array);
-	replaceArray(array);
+	board = array;
+	replaceArray(board);
 }
 
 function seedBoard(maxVal) {
