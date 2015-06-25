@@ -53,4 +53,8 @@ printArray($board);
 	<input type="submit" action="/threes.php" name="move" value="left" />
 	<input type="submit" action="/threes.php" name="move" value="right" />
 	<input type="submit" action="/threes.php" name="move" value="down" />
+<<<<<<< HEAD
 </form>
+=======
+</form>
+>>>>>>> d20a6767d7ba442e1c6b93e34f5cfcbeaee31e76

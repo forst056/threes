@@ -1,18 +1,53 @@
-table {
-	font-size: 2em;
-	margin: 1em;
-}
-
-td {
+button {
 	background: #eee;
-	padding: .5em;
+	border-radius: .25em;
+	color: #555;
+	font-family: 'Helvetica Neue', sans-serif;
+	font-size: 1.5em;
+}
+
+div.buttons {
+	width: 18.25em;
+}
+
+div.new-game {
 	text-align: center;
+	width: auto;
 }
 
-td.one {
+span {
+	color: #555;
+	font-family: 'Helvetica Neue', sans-serif;
+	font-weight: bold;
+}
+
+span.one {
 	background: #66CCFF;
+	color: white;
 }
 
-td.two {
+span.two {
 	background: #FF8080;
+	color: white;
+}
+
+.row {
+	clear: both;
+}
+
+.btn-grp {
+	clear: both;
+	padding: 1em 0;
+}
+
+.cell {
+	background: #eee;
+	border: .03175em solid white;
+	border-radius: .175em;
+	display: block;
+	float: left;
+	font-size: 2em;
+	padding: .75em .5em;
+	text-align: center;
+	width: 1.25em;
 }

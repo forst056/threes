@@ -1,6 +1,33 @@
 <?php
 
 $input = $_GET['input'];
+$input = $_POST['action'];
+$board = json_decode($_POST['board']);
+$maxVal = 48;
+
+// echo $board;
+
+if (isset($input)) {
+	switch ($input) {
+		case 'up':
+			move($board, $input);
+			break;
+		case 'right':
+			move($board, $input);
+			break;
+		case 'down':
+			move($board, $input);
+			break;
+		case 'left':
+			move($board, $input);
+			break;
+		case 'seedBoard':
+			seedBoard(48);
+			break;
+		default:
+			break;
+	}
+}
 
 //======================
 // FUNCTION: SEED BOARD
@@ -8,6 +35,10 @@ $input = $_GET['input'];
 
 function seedBoard ($maxVal) {
 	global $board;
+
+seedBoard($maxVal);
+
+function seedBoard ($maxVal) {
 
 	// Create an empty array with 15 values...
 
@@ -31,6 +62,8 @@ function seedBoard ($maxVal) {
 	//...then return the board
 
 	return $board;
+
+	echo json_encode($board);
 
 }
 
@@ -138,6 +171,8 @@ function generateNextNum ($array) {
 //================
 
 function move ($board, $input) {
+	var_dump('chicken');
+	exit;
 	global $board;
 	global $nextNum;
 	$canMove = false;
@@ -337,6 +372,11 @@ function move ($board, $input) {
 
 	$board = $array;
 	return $board;
+	// return $board;
+	header('Content-type: application/javascript;charset=utf-8');
+	echo json_encode($board);
+	exit;
+
 }
 
 //=============
