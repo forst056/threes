@@ -7,8 +7,8 @@ button {
 }
 div.board {
 	background: #eee;
-	width: 320px;
-	height: 480px;
+	width: 340px;
+	height: 500px;
 }
 div.buttons {
 	width: 18.25em;
@@ -20,30 +20,45 @@ div.new-game {
 }
 
 span {
-	color: #555;
 	font-family: 'Helvetica Neue', sans-serif;
 	font-weight: bold;
 }
 
-.cell {
-	background: #ccc;
+span.cell, span.tile {
 	border-radius: 4px;
-	width: 60px;
+	position: absolute;
+}
+
+span.cell, #nextNum {
+	background: #ccc;
 	height: 100px;
+	width: 60px;
 }
 
 span.one {
 	background: #66CCFF;
 	color: white;
+	height: 110px;
 }
 
 span.two {
 	background: #FF8080;
 	color: white;
+	height: 110px;
 }
 
-.row {
-	clear: both;
+span.number {
+	background: #fff;
+	color: #333;
+	height: 110px;
+}
+
+span.tile {
+	background: white;
+	width: 60px;
+	height: 100px;
+	color: #333;
+	z-index: 20;
 }
 
 .btn-grp {
@@ -51,19 +66,138 @@ span.two {
 	padding: 1em 0;
 }
 
+span.empty {
+	background: #ccc;
+}
+
 #cell0 {
-	background: red;
-	position: absolute;
-	left: 10px
-	top: 10px;
+	margin: 20px 0 0 20px;
 }
 
 #cell1 {
-	background: blue;
-	position: absolute;
-	left: 80px
-	top: 10px;
+	margin: 20px 0 0 100px;
 }
+
+#cell2 {
+	margin: 20px 0 0 180px;
+}
+
+#cell3 {
+	margin: 20px 0 0 260px;
+}
+
+#cell4 {
+	margin: 140px 0 0 20px;
+}
+
+#cell5 {
+	margin: 140px 0 0 100px;
+}
+
+#cell6 {
+	margin: 140px 0 0 180px;
+}
+
+#cell7 {
+	margin: 140px 0 0 260px;
+}
+
+#cell8 {
+	margin: 260px 0 0 20px;
+}
+
+#cell9 {
+	margin: 260px 0 0 100px;
+}
+
+#cell10 {
+	margin: 260px 0 0 180px;
+}
+
+#cell11 {
+	margin: 260px 0 0 260px;
+}
+
+#cell12 {
+	margin: 380px 0 0 20px;
+}
+
+#cell13 {
+	margin: 380px 0 0 100px;
+}
+
+#cell14 {
+	margin: 380px 0 0 180px;
+}
+
+#cell15 {
+	margin: 380px 0 0 260px;
+}
+
+#tile0 {
+	margin: 10px 0 0 20px;
+}
+
+#tile1 {
+	margin: 10px 0 0 100px;
+}
+
+#tile2 {
+	margin: 10px 0 0 180px;
+}
+
+#tile3 {
+	margin: 10px 0 0 260px;
+}
+
+#tile4 {
+	margin: 130px 0 0 20px;
+}
+
+#tile5 {
+	margin: 130px 0 0 100px;
+}
+
+#tile6 {
+	margin: 130px 0 0 180px;
+}
+
+#tile7 {
+	margin: 130px 0 0 260px;
+}
+
+#tile8 {
+	margin: 250px 0 0 20px;
+}
+
+#tile9 {
+	margin: 250px 0 0 100px;
+}
+
+#tile10 {
+	margin: 250px 0 0 180px;
+}
+
+#tile11 {
+	margin: 250px 0 0 260px;
+}
+
+#tile12 {
+	margin: 370px 0 0 20px;
+}
+
+#tile13 {
+	margin: 370px 0 0 100px;
+}
+
+#tile14 {
+	margin: 370px 0 0 180px;
+}
+
+#tile15 {
+	margin: 370px 0 0 260px;
+}
+
 
 /*.cell {
 	background: #eee;

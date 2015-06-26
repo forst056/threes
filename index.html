@@ -7,10 +7,6 @@
 <script type='text/javascript' src='jquery-1.11.3.js'></script>
 <script type="text/javascript">
 
-// printArray(board);
-// seedBoard(48);
-// nextNum = genNextNum(board);
-
 //--------------
 // FUNCTIONS
 //--------------
@@ -235,31 +231,29 @@ function replaceArray(array) {
 }
 
 function printArray(array) {
-	document.write("<div class='upNext row'><span class='cell' id='nextNum'>" + nextNum + "</span></div>");
-	document.write("<div class='row'>");
+	document.getElementById("nextNum").innerHTML = nextNum;
 	for (i=0; i<16; i++) {
-		if (i%4 == 0 && i > 1) {
-			document.write("</div><div class='row'>");
-		}
 		if (array[i] === 0) {
-			document.write("<span class='cell' id=cell" + i + "><br /></span>");
+			document.getElementById("tile" + i).innerHTML = "";
+			document.getElementById("tile" + i).class = "empty";
 		}
 		else {
-			document.write("<span class='cell' id=cell" + i + ">" + array[i] + "</span>");
+			document.getElementById("tile" + i).innerHTML = array[i];
 		}
 
-		var id = document.getElementById("cell" + i);
+		var id = document.getElementById("tile" + i);
 		switch (array[i]) {
 			case 0:
+				id.className = "tile empty";
 				break;
 			case 1:
-				id.className = id.className + " one";
+				id.className = "tile one";
 				break;
 			case 2:
-				id.className = id.className + " two";
+				id.className = "tile two";
 				break;
 			default:
-				id.className = id.className + " number";
+				id.className = "tile number";
 				break;
 
 		}
@@ -316,34 +310,60 @@ function genNextNum (array) {
 </head>
 
 <body>
-<div class="board">
-	<span id="cell0" class="cell empty"> </span>
-	<span id="cell1" class="cell empty"></span>
-	<span id="cell2" class="cell empty"> </span>
-	<span id="cell3" class="cell empty"> </span>
-	<span id="cell4" class="cell empty"> </span>
-	<span id="cell5" class="cell empty"> </span>
-	<span id="cell6" class="cell empty"> </span>
-	<span id="cell7" class="cell empty"> </span>
-	<span id="cell8" class="cell empty"> </span>
-	<span id="cell9" class="cell empty"> </span>
-	<span id="cell10" class="cell empty"> </span>
-	<span id="cell11" class="cell empty"> </span>
-	<span id="cell12" class="cell empty"> </span>
-	<span id="cell13" class="cell empty"> </span>
-	<span id="cell14" class="cell empty"> </span>
-	<span id="cell15" class="cell empty"> </span>
-</div>
-<div class="buttons">
-<div class="btn-grp">
-<button type="button" name="up" value="up" onclick="move('up')">Up</button>
-<button type="button" name="right" value="right" onclick="move('right')">Right</button>
-<button type="button" name="down" value="down" onclick="move('down')">Down</button>
-<button type="button" name="left" value="left" onclick="move('left')">Left</button>
-</div>
-<div class="new-game">
-<button type="button" name="seedBoard" value="seedBoard" onclick="seedBoard(48)">New Game</button>
-</div>
-</div>
+	<div class='upNext row'>
+		<span class="nextNum" id="nextNum">3</span>
+	</div>
+	<div class="board">
+		<span id="cell0" class="cell empty"></span>
+		<span id="cell1" class="cell empty"></span>
+		<span id="cell2" class="cell empty"></span>
+		<span id="cell3" class="cell empty"></span>
+		<span id="cell4" class="cell empty"></span>
+		<span id="cell5" class="cell empty"></span>
+		<span id="cell6" class="cell empty"></span>
+		<span id="cell7" class="cell empty"></span>
+		<span id="cell8" class="cell empty"></span>
+		<span id="cell9" class="cell empty"></span>
+		<span id="cell10" class="cell empty"></span>
+		<span id="cell11" class="cell empty"></span>
+		<span id="cell12" class="cell empty"></span>
+		<span id="cell13" class="cell empty"></span>
+		<span id="cell14" class="cell empty"></span>
+		<span id="cell15" class="cell empty"></span>
+		<span id="tile0" class="tile empty"></span>
+		<span id="tile1" class="tile empty"></span>
+		<span id="tile2" class="tile empty"></span>
+		<span id="tile3" class="tile empty"></span>
+		<span id="tile4" class="tile empty"></span>
+		<span id="tile5" class="tile empty"></span>
+		<span id="tile6" class="tile empty"></span>
+		<span id="tile7" class="tile empty"></span>
+		<span id="tile8" class="tile empty"></span>
+		<span id="tile9" class="tile empty"></span>
+		<span id="tile10" class="tile empty"></span>
+		<span id="tile11" class="tile empty"></span>
+		<span id="tile12" class="tile empty"></span>
+		<span id="tile13" class="tile empty"></span>
+		<span id="tile14" class="tile empty"></span>
+		<span id="tile15" class="tile empty"></span>
+	</div>
+	<div class="buttons">
+	<div class="btn-grp">
+	<button type="button" name="up" value="up" onclick="move('up')">Up</button>
+	<button type="button" name="right" value="right" onclick="move('right')">Right</button>
+	<button type="button" name="down" value="down" onclick="move('down')">Down</button>
+	<button type="button" name="left" value="left" onclick="move('left')">Left</button>
+	</div>
+	<div class="new-game">
+	<button type="button" name="seedBoard" value="seedBoard" onclick="seedBoard(48)">New Game</button>
+	</div>
+	</div>
+
+<script>
+printArray(board);
+// replaceArray(board);
+// nextNum = genNextNum(board);
+</script>
+
 </body>
 </html>
