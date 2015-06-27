@@ -7,7 +7,10 @@ button {
 }
 div.board {
 	background: #eee;
-	width: 340px;
+	border: none;
+	border-radius: 10px;
+	position: relative;
+	width: 350px;
 	height: 500px;
 }
 div.buttons {
@@ -25,39 +28,44 @@ span {
 }
 
 span.cell, span.tile {
-	border-radius: 4px;
+	border-radius: 10px;
 	position: absolute;
 }
 
 span.cell, #nextNum {
 	background: #ccc;
 	height: 100px;
-	width: 60px;
+	width: 70px;
 }
 
 span.one {
+	font-size: 2em;
 	background: #66CCFF;
 	color: white;
 	height: 110px;
 }
 
 span.two {
+	font-size: 2em;
 	background: #FF8080;
 	color: white;
 	height: 110px;
 }
 
 span.number {
-	background: #fff;
-	color: #333;
-	height: 110px;
+	font-size: 2em;
+	background: white;
+	color: #555;
 }
 
 span.tile {
-	background: white;
-	width: 60px;
-	height: 100px;
-	color: #333;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	line-height: 100px;
+	width: 64px;
+	margin: 0 3px 3px 3px;
+	height: 105px;
 	z-index: 20;
 }
 
@@ -67,74 +75,90 @@ span.tile {
 }
 
 span.empty {
-	background: #ccc;
+	background: #ddd;
 }
 
-#cell0 {
-	margin: 20px 0 0 20px;
+.cell0 {
+	bottom: 380px;
+	left: 20px;
 }
 
-#cell1 {
-	margin: 20px 0 0 100px;
+.cell1 {
+	bottom: 380px;
+	left: 100px;
 }
 
-#cell2 {
-	margin: 20px 0 0 180px;
+.cell2 {
+	bottom: 380px;
+	left: 180px;
 }
 
-#cell3 {
-	margin: 20px 0 0 260px;
+.cell3 {
+	bottom: 380px;
+	left: 260px;
 }
 
-#cell4 {
-	margin: 140px 0 0 20px;
+.cell4 {
+	bottom: 260px;
+	left: 20px;
 }
 
-#cell5 {
-	margin: 140px 0 0 100px;
+.cell5 {
+	bottom: 260px;
+	left: 100px;
 }
 
-#cell6 {
-	margin: 140px 0 0 180px;
+.cell6 {
+	bottom: 260px;
+	left: 180px;
 }
 
-#cell7 {
-	margin: 140px 0 0 260px;
+.cell7 {
+	bottom: 260px;
+	left: 260px;
 }
 
-#cell8 {
-	margin: 260px 0 0 20px;
+.cell8 {
+	bottom: 140px;
+	left: 20px;
 }
 
-#cell9 {
-	margin: 260px 0 0 100px;
+.cell9 {
+	bottom: 140px;
+	left: 100px;
 }
 
-#cell10 {
-	margin: 260px 0 0 180px;
+.cell10 {
+	bottom: 140px;
+	left: 180px;
 }
 
-#cell11 {
-	margin: 260px 0 0 260px;
+.cell11 {
+	bottom: 140px;
+	left: 260px;
 }
 
-#cell12 {
-	margin: 380px 0 0 20px;
+.cell12 {
+	bottom: 20px;
+	left: 20px;
 }
 
-#cell13 {
-	margin: 380px 0 0 100px;
+.cell13 {
+	bottom: 20px;
+	left: 100px;
 }
 
-#cell14 {
-	margin: 380px 0 0 180px;
+.cell14 {
+	bottom: 20px;
+	left: 180px;
 }
 
-#cell15 {
-	margin: 380px 0 0 260px;
+.cell15 {
+	bottom: 20px;
+	left: 260px;
 }
 
-#tile0 {
+/*#tile0 {
 	margin: 10px 0 0 20px;
 }
 
@@ -196,7 +220,7 @@ span.empty {
 
 #tile15 {
 	margin: 370px 0 0 260px;
-}
+}*/
 
 
 /*.cell {

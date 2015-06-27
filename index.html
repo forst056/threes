@@ -187,6 +187,8 @@ function seedBoard(maxVal) {
 }
 
 function replaceArray(array) {
+
+	// Next number
 	var nextUp = document.getElementById("nextNum");
 	nextUp.className = "nextNum cell";
 	switch (nextNum) {
@@ -204,61 +206,61 @@ function replaceArray(array) {
 		}
 		document.getElementById("nextNum").innerHTML = nextNum;
 
-	for (i=0; i<16; i++) {
-		if (array[i] === 0) {
-			document.getElementById("cell" + i).innerHTML = "<br />";
-		}
-		else {
-			document.getElementById("cell" + i).innerHTML = array[i];
-		}
-		document.getElementById("cell" + i).className = "cell";
+		// Replace board tiles
+		for (i=0; i<16; i++) {
+			if (array[i] === 0) {
+				document.getElementById("tile" + i).innerHTML = "";
+			}
+			else {
+				document.getElementById("tile" + i).innerHTML = array[i];
+			}
+			document.getElementById("tile" + i).className = "tile cell" + i;
 
-		var id = document.getElementById("cell" + i);
-		switch (array[i]) {
-			case 0:
-				break;
-			case 1:
-				id.className = id.className + " one";
-				break;
-			case 2:
-				id.className = id.className + " two";
-				break;
-			default:
-				id.className = id.className + " number";
-				break;
+			// Add classes
+			var id = document.getElementById("tile" + i);
+			switch (array[i]) {
+				case 0:
+					break;
+				case 1:
+					id.className = id.className + " one";
+					break;
+				case 2:
+					id.className = id.className + " two";
+					break;
+				default:
+					id.className = id.className + " number";
+					break;
 		}
 	}
 }
 
 function printArray(array) {
-	document.getElementById("nextNum").innerHTML = nextNum;
 	for (i=0; i<16; i++) {
-		if (array[i] === 0) {
-			document.getElementById("tile" + i).innerHTML = "";
-			document.getElementById("tile" + i).class = "empty";
+		var val = array[i];
+		if (val > 0) {
+			document.write("<span class='tile cell" + i + "' id='tile" + i + "'>" + val + "</span>");
 		}
 		else {
-			document.getElementById("tile" + i).innerHTML = array[i];
+			document.write("<span class='tile empty cell" + i + "' id='tile" + i + "'></span>");
 		}
 
-		var id = document.getElementById("tile" + i);
-		switch (array[i]) {
-			case 0:
-				id.className = "tile empty";
-				break;
-			case 1:
-				id.className = "tile one";
-				break;
-			case 2:
-				id.className = "tile two";
-				break;
-			default:
-				id.className = "tile number";
-				break;
+		// var id = document.getElementById("tile" + i);
+		// switch (array[i]) {
+		// 	case 0:
+		// 		id.className += " empty";
+		// 		break;
+		// 	case 1:
+		// 		id.className += " one";
+		// 		break;
+		// 	case 2:
+		// 		id.className += " two";
+		// 		break;
+		// 	default:
+		// 		id.className += " number";
+		// 		break;
+		// }
 
-		}
 	}
-	document.write("</div>");
 }
 
 function shuffleArray(array) {
@@ -273,7 +275,7 @@ function shuffleArray(array) {
 }
 
 function genNextNum (array) {
-	var nextNum, randPos,
+	var randPos,
 	maxVal = max(array),
 	addVal = 3,
 	boardValues = [1,2,3],
@@ -306,47 +308,22 @@ function genNextNum (array) {
 	return nextNum;
 }
 
+function setUpBoard(){
+	document.write("<div class='upNext row'><span id='nextNum'>" + nextNum + "</span></div>");
+	document.write("<div class='board'>");
+	for (var i=0; i<16; i++) {
+			document.write("<span class='cell empty cell" + i + "'></span>");
+			document.write("<span class='tile empty cell" + i + "' id='tile" + i + "'></span>");
+	}
+	document.write("</div>");
+	seedBoard(48);
+}
+
 </script>
 </head>
 
 <body>
-	<div class='upNext row'>
-		<span class="nextNum" id="nextNum">3</span>
-	</div>
-	<div class="board">
-		<span id="cell0" class="cell empty"></span>
-		<span id="cell1" class="cell empty"></span>
-		<span id="cell2" class="cell empty"></span>
-		<span id="cell3" class="cell empty"></span>
-		<span id="cell4" class="cell empty"></span>
-		<span id="cell5" class="cell empty"></span>
-		<span id="cell6" class="cell empty"></span>
-		<span id="cell7" class="cell empty"></span>
-		<span id="cell8" class="cell empty"></span>
-		<span id="cell9" class="cell empty"></span>
-		<span id="cell10" class="cell empty"></span>
-		<span id="cell11" class="cell empty"></span>
-		<span id="cell12" class="cell empty"></span>
-		<span id="cell13" class="cell empty"></span>
-		<span id="cell14" class="cell empty"></span>
-		<span id="cell15" class="cell empty"></span>
-		<span id="tile0" class="tile empty"></span>
-		<span id="tile1" class="tile empty"></span>
-		<span id="tile2" class="tile empty"></span>
-		<span id="tile3" class="tile empty"></span>
-		<span id="tile4" class="tile empty"></span>
-		<span id="tile5" class="tile empty"></span>
-		<span id="tile6" class="tile empty"></span>
-		<span id="tile7" class="tile empty"></span>
-		<span id="tile8" class="tile empty"></span>
-		<span id="tile9" class="tile empty"></span>
-		<span id="tile10" class="tile empty"></span>
-		<span id="tile11" class="tile empty"></span>
-		<span id="tile12" class="tile empty"></span>
-		<span id="tile13" class="tile empty"></span>
-		<span id="tile14" class="tile empty"></span>
-		<span id="tile15" class="tile empty"></span>
-	</div>
+	<script>setUpBoard();</script>
 	<div class="buttons">
 	<div class="btn-grp">
 	<button type="button" name="up" value="up" onclick="move('up')">Up</button>
@@ -358,12 +335,5 @@ function genNextNum (array) {
 	<button type="button" name="seedBoard" value="seedBoard" onclick="seedBoard(48)">New Game</button>
 	</div>
 	</div>
-
-<script>
-printArray(board);
-// replaceArray(board);
-// nextNum = genNextNum(board);
-</script>
-
 </body>
 </html>
