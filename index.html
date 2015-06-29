@@ -204,7 +204,7 @@ function replaceArray(array) {
 			nextUp.className = nextUp.className + " number";
 			break;
 		}
-		document.getElementById("nextNum").innerHTML = nextNum;
+		document.getElementById("nextNum").innerHTML = (nextNum > 3 ? '+' : "");
 
 		// Replace board tiles
 		for (i=0; i<16; i++) {
@@ -309,7 +309,9 @@ function genNextNum (array) {
 }
 
 function setUpBoard(){
-	document.write("<div class='upNext'><span class='cell empty' id='nextNum'>" + nextNum + "</span></div>");
+	document.write("<div class='upNext'>");
+	document.write("<span class='cell empty nextNum'></span>");
+	document.write("<span class='tile' id='nextNum'><span></div>");
 	document.write("<div class='board'>");
 	for (var i=0; i<16; i++) {
 			document.write("<span class='cell empty cell" + i + "'></span>");
@@ -323,17 +325,15 @@ function setUpBoard(){
 </head>
 
 <body>
+	<div class="buttons">
+		<button type="button" class="newGame" name="seedBoard" value="seedBoard" onclick="seedBoard(48)">New Game</button>
+	</div>
 	<script>setUpBoard();</script>
 	<div class="buttons">
-	<div class="btn-grp">
-	<button type="button" name="up" value="up" onclick="move('up')">Up</button>
-	<button type="button" name="right" value="right" onclick="move('right')">Right</button>
-	<button type="button" name="down" value="down" onclick="move('down')">Down</button>
-	<button type="button" name="left" value="left" onclick="move('left')">Left</button>
-	</div>
-	<div class="new-game">
-	<button type="button" name="seedBoard" value="seedBoard" onclick="seedBoard(48)">New Game</button>
-	</div>
+		<button type="button" class="direction" name="up" value="up" onclick="move('up')">Up</button>
+		<button type="button" class="direction" name="right" value="right" onclick="move('right')">Right</button>
+		<button type="button" class="direction" name="down" value="down" onclick="move('down')">Down</button>
+		<button type="button" class="direction" name="left" value="left" onclick="move('left')">Left</button>
 	</div>
 </body>
 </html>

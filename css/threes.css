@@ -1,13 +1,43 @@
 button {
-	background: #eee;
-	border-radius: .25em;
-	color: #555;
+	background: transparent;
+	border: 2px solid #aaa;
+	border-radius: 10px;
+	box-shadow: none;
+	color: #aaa;
 	font-family: 'Helvetica Neue', sans-serif;
 	font-size: 1.5em;
 }
+
+button.direction {
+	width: 24%;
+	height: 60px;
+	margin: 0 auto;
+	display: inline-block;
+}
+
+button.direction:hover {
+	background: #eee;
+	border-color: #aaa;
+	color: #999;
+	transition: all .2s;
+}
+
+button.newGame {
+	margin: 0 auto;
+	width: 100%;
+	height: 60px;
+
+}
+
+button.newGame:hover {
+	background: #9CDB9C;
+	border-color: #8CC58C;
+	color: white;
+	transition: all .2s;
+}
+
 div.board {
 	background: #eee;
-	border: none;
 	border-radius: 10px;
 	display: block;
 	position: relative;
@@ -18,21 +48,18 @@ div.board {
 
 div.upNext {
 	background: #eee;
-	border: none;
 	border-radius: 10px;
 	position: relative;
 	margin: 10px auto;
 	width: 350px;
-	height: 110px;
+	height: 100px;
+	text-align: center;
 }
 
 div.buttons {
-	width: 18.25em;
-}
-
-div.new-game {
-	text-align: center;
-	width: auto;
+	width: 350px;
+	position: relative;
+	margin: 10px auto;
 }
 
 span {
@@ -51,30 +78,34 @@ span.cell {
 	width: 70px;
 }
 
-#nextNum {
-	/*clear: both;
+span.nextNum {
 	vertical-align: middle;
 	text-align: center;
-	position: absolute;*/
-	margin: 0 auto;
-	display: table-cell;
-	background: #ccc;
-	height: 100px;
-	width: 70px;
+	position: absolute;
+	left: 147px;
+	bottom: 10px;
+	background: #ddd;
+	height: 80px;
+	width: 56px;
+}
+
+#nextNum {
+	left: 151px;
+	bottom: 14px;
+	height: 82px;
+	width: 48px;
 }
 
 span.one {
 	font-size: 2em;
 	background: #66CCFF;
 	color: white;
-	height: 110px;
 }
 
 span.two {
 	font-size: 2em;
 	background: #FF8080;
 	color: white;
-	height: 110px;
 }
 
 span.number {
@@ -96,7 +127,7 @@ span.tile {
 
 .btn-grp {
 	clear: both;
-	padding: 1em 0;
+	text-align: center;
 }
 
 span.empty {
