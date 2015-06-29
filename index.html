@@ -309,7 +309,7 @@ function genNextNum (array) {
 }
 
 function setUpBoard(){
-	document.write("<div class='upNext row'><span id='nextNum'>" + nextNum + "</span></div>");
+	document.write("<div class='upNext'><span class='cell empty' id='nextNum'>" + nextNum + "</span></div>");
 	document.write("<div class='board'>");
 	for (var i=0; i<16; i++) {
 			document.write("<span class='cell empty cell" + i + "'></span>");

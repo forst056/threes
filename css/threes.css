@@ -9,10 +9,23 @@ div.board {
 	background: #eee;
 	border: none;
 	border-radius: 10px;
+	display: block;
 	position: relative;
+	margin: 0 auto;
 	width: 350px;
 	height: 500px;
 }
+
+div.upNext {
+	background: #eee;
+	border: none;
+	border-radius: 10px;
+	position: relative;
+	margin: 10px auto;
+	width: 350px;
+	height: 110px;
+}
+
 div.buttons {
 	width: 18.25em;
 }
@@ -32,7 +45,19 @@ span.cell, span.tile {
 	position: absolute;
 }
 
-span.cell, #nextNum {
+span.cell {
+	background: #ccc;
+	height: 100px;
+	width: 70px;
+}
+
+#nextNum {
+	/*clear: both;
+	vertical-align: middle;
+	text-align: center;
+	position: absolute;*/
+	margin: 0 auto;
+	display: table-cell;
 	background: #ccc;
 	height: 100px;
 	width: 70px;
