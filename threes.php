@@ -1,15 +1,94 @@
+<head>
 <link rel="stylesheet" href="/css/threes.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('.button').click(function(){
+        var clickBtnValue = $(this).val();
+        var ajaxurl = 'library.php',
+        data =  {'action': clickBtnValue};
+
+        $.post(ajaxurl, data, function (response) {
+        var clickBtnValue = $(this).name(),
+        val = $(this).value(),
+        url = 'library.php',
+        board = JSON.stringify('board'),
+        data =  {
+          'action': clickBtnValue,
+          'board': board
+          };
+
+        $.post(url, data, function (response) {
+            // Response div goes here.
+            alert("action performed successfully");
+        });
+    });
+
+});
+</script>
+</head>
+
+<body>
 
 <?php
 
-$nextNum = 0;
+// generateNextNum($board);
 
-$board = array(1,12,0,6,2,0,0,12,0,12,3,24,0,48,0,48);
+// move($board, $input);
+
+// $nextNum = 0;
+// $boardSize = count($board);
+var_dump($board);
+
+?>
+
+<form action="threes.php" method="GET">
+	<input type="submit" action="/threes.php" name="input" value="up" />
+	<input type="submit" action="/threes.php" name="input" value="left" />
+	<input type="submit" action="/threes.php" name="input" value="right" />
+	<input type="submit" action="/threes.php" name="input" value="down" />
+	<input type="submit" action="/threes.php" name="seedBoard" value="seedBoard" />
+	<input type="submit" action="/threes.php" name="json_decode" value="json_decode" />
+</form>
+</body>
+
+<?php
+// move($board, $input);
+// testing
+
+// $board = array(1,12,0,6,2,0,0,12,0,12,3,24,0,48,0,48);
+
+$board = json_decode($_POST['board']);
+
+if (isset($_POST['action'])) {
+    switch ($_POST['action']) {
+        case 'up':
+        	echo "success";
+            move($board, 'up');
+            break;
+        case 'right':
+            move($board, 'right');
+            break;
+        case 'left':
+            move($board, 'left');
+            break;
+        case 'down':
+            move($board, 'down');
+            break;
+        default:
+        	break;
+    }
+}
+
+
+
 $boardSize = count($board);
 
-function printArray($array){
+// $nextNum = 0;
+// $boardSize = count($board);
+// var_dump($board);
 
-	global $nextNum;
+global $nextNum;
 
 	$class = "";
 	
@@ -154,7 +233,7 @@ function move ($board, $input) {
 			case 'right':
 				$originPos = 15 - $key;
 				$refPos = $originPos - 1;
-				$wallCheck = (($originPos+1) % 4 === 0 ? true : false);
+				$wallCheck = ($originPos % 4 === 0 ? true : false);
 				break;
 
 			case 'down':
@@ -166,7 +245,7 @@ function move ($board, $input) {
 			case 'left':
 				$originPos = $key;
 				$refPos = $originPos + 1;
-				$wallCheck = (($originPos+1) % 4 === 0 ? true : false);
+				$wallCheck = ($originPos % 4 === 0 ? true : false);
 				break;
 			
 			case 'up':
@@ -187,10 +266,9 @@ function move ($board, $input) {
 
 		#
 		## Set the REFERENCE VALUE to be used (unless invalid and then set to 0)
-		## This check is only applicable for 'up' or 'down' input
 		#
 
-		$refVal = ( array_key_exists($refPos, $array) ? $array[$refPos] : 0);
+		$refVal = ( array_key_exists($refPos, $array) ? $array[$refPos] : -1);
 
 		#=============
 		# CHECK DATA
@@ -323,14 +401,19 @@ function move ($board, $input) {
 	
 	printArray($array, $input);
 	
-	$board = $array;
+	$board = json_encode($array);
 	
 	return $board;
 
 }
 
-generateNextNum($board);
-printArray($board);
-move($board, 'left');
-move($board, 'left');
 ?>
+
+<form action="threes.php" method="POST">
+	<input type="submit" action="/threes.php" name="move" value="up" />
+	<input type="submit" action="/threes.php" name="move" value="left" />
+	<input type="submit" action="/threes.php" name="move" value="right" />
+	<input type="submit" action="/threes.php" name="move" value="down" />
+	<input type="submit" action="/threes.php" name="seedBoard" value="new game" />
+</form>
+</body>

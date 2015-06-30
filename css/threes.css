@@ -1,51 +1,285 @@
 button {
-	background: #eee;
-	border-radius: .25em;
-	color: #555;
+	background: transparent;
+	border: 2px solid #aaa;
+	border-radius: 10px;
+	box-shadow: none;
+	color: #aaa;
 	font-family: 'Helvetica Neue', sans-serif;
 	font-size: 1.5em;
 }
 
-div.buttons {
-	width: 18.25em;
+button.direction {
+	width: 24%;
+	height: 60px;
+	margin: 0 auto;
+	display: inline-block;
 }
 
-div.new-game {
+button.direction:hover {
+	background: #eee;
+	border-color: #aaa;
+	color: #999;
+	transition: all .2s;
+}
+
+button.newGame {
+	margin: 0 auto;
+	width: 100%;
+	height: 60px;
+
+}
+
+button.newGame:hover {
+	background: #9CDB9C;
+	border-color: #8CC58C;
+	color: white;
+	transition: all .2s;
+}
+
+div.board {
+	background: #eee;
+	border-radius: 10px;
+	display: block;
+	position: relative;
+	margin: 0 auto;
+	width: 350px;
+	height: 500px;
+}
+
+div.upNext {
+	background: #eee;
+	border-radius: 10px;
+	position: relative;
+	margin: 10px auto;
+	width: 350px;
+	height: 100px;
 	text-align: center;
-	width: auto;
+}
+
+div.buttons {
+	width: 350px;
+	position: relative;
+	margin: 10px auto;
 }
 
 span {
-	color: #555;
 	font-family: 'Helvetica Neue', sans-serif;
 	font-weight: bold;
 }
 
+span.cell, span.tile {
+	border-radius: 10px;
+	position: absolute;
+}
+
+span.cell {
+	background: #ccc;
+	height: 100px;
+	width: 70px;
+}
+
+span.nextNum {
+	vertical-align: middle;
+	text-align: center;
+	position: absolute;
+	left: 151px;
+	top: 10px;
+	background: #ddd;
+	height: 70px;
+	width: 48px;
+}
+
+#nextNum {
+	left: 155px;
+	top: 10px;
+	height: 70px;
+	width: 40px;
+}
+
 span.one {
+	font-size: 2em;
 	background: #66CCFF;
 	color: white;
 }
 
 span.two {
+	font-size: 2em;
 	background: #FF8080;
 	color: white;
 }
 
 span.number {
+	font-size: 2em;
 	background: white;
-	border: .025em solid #eee;
+	color: #555;
 }
 
-.row {
-	clear: both;
+span.tile {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	line-height: 100px;
+	width: 64px;
+	margin: 0 3px 3px 3px;
+	height: 105px;
+	z-index: 20;
 }
 
 .btn-grp {
 	clear: both;
-	padding: 1em 0;
+	text-align: center;
 }
 
-.cell {
+span.empty {
+	background: #ddd;
+}
+
+.cell0 {
+	bottom: 380px;
+	left: 20px;
+}
+
+.cell1 {
+	bottom: 380px;
+	left: 100px;
+}
+
+.cell2 {
+	bottom: 380px;
+	left: 180px;
+}
+
+.cell3 {
+	bottom: 380px;
+	left: 260px;
+}
+
+.cell4 {
+	bottom: 260px;
+	left: 20px;
+}
+
+.cell5 {
+	bottom: 260px;
+	left: 100px;
+}
+
+.cell6 {
+	bottom: 260px;
+	left: 180px;
+}
+
+.cell7 {
+	bottom: 260px;
+	left: 260px;
+}
+
+.cell8 {
+	bottom: 140px;
+	left: 20px;
+}
+
+.cell9 {
+	bottom: 140px;
+	left: 100px;
+}
+
+.cell10 {
+	bottom: 140px;
+	left: 180px;
+}
+
+.cell11 {
+	bottom: 140px;
+	left: 260px;
+}
+
+.cell12 {
+	bottom: 20px;
+	left: 20px;
+}
+
+.cell13 {
+	bottom: 20px;
+	left: 100px;
+}
+
+.cell14 {
+	bottom: 20px;
+	left: 180px;
+}
+
+.cell15 {
+	bottom: 20px;
+	left: 260px;
+}
+
+/*#tile0 {
+	margin: 10px 0 0 20px;
+}
+
+#tile1 {
+	margin: 10px 0 0 100px;
+}
+
+#tile2 {
+	margin: 10px 0 0 180px;
+}
+
+#tile3 {
+	margin: 10px 0 0 260px;
+}
+
+#tile4 {
+	margin: 130px 0 0 20px;
+}
+
+#tile5 {
+	margin: 130px 0 0 100px;
+}
+
+#tile6 {
+	margin: 130px 0 0 180px;
+}
+
+#tile7 {
+	margin: 130px 0 0 260px;
+}
+
+#tile8 {
+	margin: 250px 0 0 20px;
+}
+
+#tile9 {
+	margin: 250px 0 0 100px;
+}
+
+#tile10 {
+	margin: 250px 0 0 180px;
+}
+
+#tile11 {
+	margin: 250px 0 0 260px;
+}
+
+#tile12 {
+	margin: 370px 0 0 20px;
+}
+
+#tile13 {
+	margin: 370px 0 0 100px;
+}
+
+#tile14 {
+	margin: 370px 0 0 180px;
+}
+
+#tile15 {
+	margin: 370px 0 0 260px;
+}*/
+
+
+/*.cell {
 	background: #eee;
 	border: .03175em solid white;
 	border-radius: .175em;
@@ -55,4 +289,4 @@ span.number {
 	padding: .75em .5em;
 	text-align: center;
 	width: 1.25em;
-}
+}*/
