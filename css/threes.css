@@ -82,18 +82,18 @@ span.nextNum {
 	vertical-align: middle;
 	text-align: center;
 	position: absolute;
-	left: 147px;
-	bottom: 10px;
+	left: 151px;
+	top: 10px;
 	background: #ddd;
-	height: 80px;
-	width: 56px;
+	height: 70px;
+	width: 48px;
 }
 
 #nextNum {
-	left: 151px;
-	bottom: 14px;
-	height: 82px;
-	width: 48px;
+	left: 155px;
+	top: 10px;
+	height: 70px;
+	width: 40px;
 }
 
 span.one {
