@@ -13,32 +13,35 @@
 //--------------
 
 $(document).keydown(function(e) {
-    switch(e.which) {
-        case 37: // left
-				move('left');
-        break;
+	var dir;
+  switch(e.which) {
+      case 37: // left
+			dir = 'left';
+      break;
 
-        case 38: // up
-				move('up');
-        break;
+      case 38: // up
+			dir = 'up';
+      break;
 
-        case 39: // right
-				move('right');
-        break;
+      case 39: // right
+			dir = 'right';
+      break;
 
-        case 40: // down
-				move('down');
-        break;
+      case 40: // down
+			dir = 'down';
+      break;
 
-        default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
+      default: return; // exit this handler for other keys
+  }
+  e.preventDefault(); // prevent the default action (scroll / move caret)
+
+	move(dir);
 });
 
 function max(array) {
 	var maxVal = Math.max.apply(null, array);
 	return maxVal;
-};
+}
 
 function move(input) {
 	var origPos, refPos, wallCheck, origVal, refVal,
@@ -293,7 +296,7 @@ function genNextNum (array) {
 	addVal = 3,
 	boardValues = [1,2,3],
 	chance = Math.floor(Math.random()*100 + 1);
-	console.log("Chance: " + chance);
+	// console.log("Chance: " + chance);
 
 	lastNum = nextNum;
 
@@ -318,7 +321,7 @@ function genNextNum (array) {
 	else {
 		nextNum = boardValues[randPos];
 	}
-	console.log("BlueRed: " + blueRed);
+	// console.log("BlueRed: " + blueRed);
 
 	// console.log("MaxVal: " + maxVal + " addVal: " + addVal + " Chance: " + chance + " ArrayMax: " + max(array));
 	// console.log(boardValues + " Count: " + boardValues.length);
