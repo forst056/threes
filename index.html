@@ -4,7 +4,7 @@
 	<title></title>
 <link rel="stylesheet" href="/css/threes.css">
 <script type="text/javascript">var board = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,48);</script>
-<script type="text/javascript">var nextNum = 3, lastNum, blueRed = 25;</script>
+<script type="text/javascript">var nextNum = 3, lastNum, blueRed = 30;</script>
 <script type='text/javascript' src='jquery-1.11.3.js'></script>
 <script type="text/javascript">
 
@@ -221,7 +221,13 @@ function replaceArray(array) {
 			else {
 				document.getElementById("tile" + i).innerHTML = array[i];
 			}
-			document.getElementById("tile" + i).className = "tile cell" + i;
+
+			if (array[i] === max(array)) {
+				document.getElementById("tile" + i).className = "tile boardMax cell" + i;
+			}
+			else {
+				document.getElementById("tile" + i).className = "tile cell" + i;
+			}
 
 			// Add classes
 			var id = document.getElementById("tile" + i);
@@ -302,11 +308,11 @@ function genNextNum (array) {
 		nextNum = 1;
 		blueRed -= 5;
 	}
-	else if (chance <= 50) {
+	else if (chance <= 60) {
 		nextNum = 2;
 		blueRed += 5;
 	}
-	else if (chance <= 90) {
+	else if (chance <= 95) {
 		nextNum = 3;
 	}
 	else {

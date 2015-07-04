@@ -122,6 +122,10 @@ span.number {
 	color: #555;
 }
 
+span.boardMax {
+	color: #FF8080;
+}
+
 span.tile {
 	display: table-cell;
 	vertical-align: middle;
