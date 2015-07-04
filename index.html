@@ -3,7 +3,8 @@
 <head>
 	<title></title>
 <link rel="stylesheet" href="/css/threes.css">
-<script type="text/javascript">var board = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,48), nextNum = 3;</script>
+<script type="text/javascript">var board = new Array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,48);</script>
+<script type="text/javascript">var nextNum = 3, lastNum, blueRed = 25;</script>
 <script type='text/javascript' src='jquery-1.11.3.js'></script>
 <script type="text/javascript">
 
@@ -158,9 +159,9 @@ function move(input) {
 
 	var selectOption = Math.floor(Math.random() * tileEntryOptions.length);
 	var tileSelect = tileEntryOptions[selectOption];
-	console.log("Tile Entry Options: " + tileEntryOptions);
-	console.log("Select Option: " + selectOption);
-	console.log("Tile Select: " + tileSelect);
+	// console.log("Tile Entry Options: " + tileEntryOptions);
+	// console.log("Select Option: " + selectOption);
+	// console.log("Tile Select: " + tileSelect);
 	array[tileSelect] = nextNum;
 	nextNum = genNextNum(array);
 	board = array;
@@ -286,6 +287,9 @@ function genNextNum (array) {
 	addVal = 3,
 	boardValues = [1,2,3],
 	chance = Math.floor(Math.random()*100 + 1);
+	console.log("Chance: " + chance);
+
+	lastNum = nextNum;
 
 	while ((addVal < maxVal) && (maxVal > 3)) {
 		addVal *= 2;
@@ -294,11 +298,13 @@ function genNextNum (array) {
 
 	var randPos = Math.floor(Math.random() * (boardValues.length-4)) + 2;
 
-	if (chance <= 25) {
+	if (chance <= blueRed) {
 		nextNum = 1;
+		blueRed -= 5;
 	}
 	else if (chance <= 50) {
 		nextNum = 2;
+		blueRed += 5;
 	}
 	else if (chance <= 90) {
 		nextNum = 3;
@@ -306,6 +312,7 @@ function genNextNum (array) {
 	else {
 		nextNum = boardValues[randPos];
 	}
+	console.log("BlueRed: " + blueRed);
 
 	// console.log("MaxVal: " + maxVal + " addVal: " + addVal + " Chance: " + chance + " ArrayMax: " + max(array));
 	// console.log(boardValues + " Count: " + boardValues.length);
