@@ -47,6 +47,8 @@ function move(input) {
 	array = board,
 	tileEntryOptions = [];
 
+	// console.log("Before: " + array);
+
 
 	array.forEach (function(value, key) {
 		switch(input) {
@@ -146,20 +148,24 @@ function move(input) {
 		return false;
 	}
 
+	// console.log("During: " + array);
+
 	// Sanitize array of -1 values
 
 	array.forEach (function(value, key) {
 		array[key] = (value === -1 ? 0 : value);
 	});
 
-	var nextOptCount = tileEntryOptions.length;
-	var tileSelect = Math.floor(Math.random() * nextOptCount);
+	var selectOption = Math.floor(Math.random() * tileEntryOptions.length);
+	var tileSelect = tileEntryOptions[selectOption];
+	console.log("Tile Entry Options: " + tileEntryOptions);
+	console.log("Select Option: " + selectOption);
+	console.log("Tile Select: " + tileSelect);
 	array[tileSelect] = nextNum;
 	nextNum = genNextNum(array);
-	console.log(tileEntryOptions);
-	console.log(array);
 	board = array;
 	replaceArray(board);
+	// console.log("After:" + array);
 }
 
 function seedBoard(maxVal) {
