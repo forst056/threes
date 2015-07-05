@@ -146,6 +146,10 @@ span.empty {
 	background: #ddd;
 }
 
+.move {
+	z-index: 10;
+}
+
 .cell0 {
 	bottom: 380px;
 	left: 20px;

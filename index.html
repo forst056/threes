@@ -16,26 +16,26 @@ $(document).keydown(function(e) {
 	var dir;
   switch(e.which) {
       case 37: // left
-			dir = 'left';
+			// $('.move').animate({"left": "-=80px"}, "fast");
+			move('left');
       break;
 
       case 38: // up
-			dir = 'up';
+			move('up');
       break;
 
       case 39: // right
-			dir = 'right';
+			move('right');
       break;
 
       case 40: // down
-			dir = 'down';
+			move('down');
       break;
 
       default: return; // exit this handler for other keys
   }
   e.preventDefault(); // prevent the default action (scroll / move caret)
-
-	move(dir);
+	// move(dir);
 });
 
 function max(array) {
@@ -44,10 +44,7 @@ function max(array) {
 }
 
 function move(input) {
-	var origPos, refPos, wallCheck, origVal, refVal,
-	blankCheck, doubleBlankCheck, comboCheck, moveCheck,
-	newVal,
-	canMove = false,
+	var origPos, refPos, wallCheck, origVal, refVal, newVal,
 	array = board,
 	tileEntryOptions = [];
 
@@ -83,93 +80,86 @@ function move(input) {
 			default:
 				break;
 		}
-		// console.log("OrigPos: " + origPos + " RefPos: " + refPos + " WallCheck: " + wallCheck); // TEST
+
+		// Set the target and reference vals for checks
 
 		origVal = array[origPos];
+		refVal = array[refPos];
 
-		refVal = ( !wallCheck ? array[refPos] : 0);
-		// console.log("OrigVal: " + origVal + " RefVal: " + refVal); // TEST
+		// Perform checks
+		var c = checks(origVal, refVal, wallCheck);
 
-		blankCheck = (origVal < 1 && refVal > 0 ? true : false);
-		doubleBlankCheck = (origVal < 1 && (refVal === 0 || wallCheck) ? true : false);
-		comboCheck = ((origVal === refVal && origVal > 2) || ((origVal + refVal === 3 && origVal !== 3) && !wallCheck) ? true : false);
-		moveCheck = ((blankCheck && !doubleBlankCheck) || comboCheck ? true : false);
-		canMove = (moveCheck ? true : canMove);
-		// console.log("Blank: " + blankCheck + " DoubleBlank: " + doubleBlankCheck + " Combo: " + comboCheck + " Move: " + moveCheck + " Can move: " + canMove); // TEST
+		// Set the new val
 
-		if (blankCheck) {
-			newVal = refVal;
-		}
-
-		else if (comboCheck) {
-			newVal = origVal + refVal;
-		}
-
-		else if (doubleBlankCheck) {
-			newVal = 0;
-		}
-
-		else {
+		switch (c) {
+			case -1:
 			newVal = origVal;
-		}
-		// console.log("NewVal: " + newVal);
+			break;
 
-		if (doubleBlankCheck && !wallCheck) {
-			array[refPos] = origVal;
-			array[origPos] = 0;
-		}
+			case 0: // doubleBlank
+			newVal = refVal; // sets val to be written to 0...
+			refVal = origVal; // ...but makes sure move tag is passed on
+			break;
 
-		else if (moveCheck && !wallCheck) {
+			case 1: // move
+			newVal = refVal;
+			refVal = -1;
+			break;
 
-			//...enter its new value into the array...
+			case 2: // combo
+			newVal = origVal + refVal;
+			refVal = -1;
+			break;
 
-			array[origPos] = newVal;
-
-			//...and clear out room before it so others can cascade
-
-			array[refPos] = -1;
-		}
-
-		else if (moveCheck && wallCheck) {
-
-			//...just bring in a blank space for now
-
-			array[origPos] = 0;
+			default: // no move
+			newVal = origVal;
+			break;
 		}
 
-		//...otherwise don't fuck with it!
+		// Write to array
 
-		else {
-			array[origPos] = origVal;
+		array[origPos] = newVal;
+		array[refPos] = refVal;
+
+		// Set the tile entry possibilities
+
+		if (newVal === -1 && wallCheck) {
+			tileEntryOptions.push(origPos); // add pos to tile entry options
+			array[origPos] = 0; // sanitize array of -1
 		}
-
-		if (origVal === -1 && wallCheck) {
-			tileEntryOptions.push(origPos);
-		}
-	});
-
-	if (!canMove) {
-		return false;
-	}
-
-	// console.log("During: " + array);
-
-	// Sanitize array of -1 values
-
-	array.forEach (function(value, key) {
-		array[key] = (value === -1 ? 0 : value);
 	});
 
 	var selectOption = Math.floor(Math.random() * tileEntryOptions.length);
 	var tileSelect = tileEntryOptions[selectOption];
-	// console.log("Tile Entry Options: " + tileEntryOptions);
-	// console.log("Select Option: " + selectOption);
-	// console.log("Tile Select: " + tileSelect);
 	array[tileSelect] = nextNum;
 	nextNum = genNextNum(array);
 	board = array;
 	replaceArray(board);
-	// console.log("After:" + array);
+}
+
+function checks(orig, ref, wall) {
+	var move,
+	blnkChk = (orig < 1 && ref > 0 ? true : false),
+	dblBlnkChk = (orig < 1 && ref < 1 ? true : false),
+	cmbChk = ((orig === ref && orig > 2) || (orig + ref === 3 && orig !== 3) ? true : false);
+
+	if (wall) {
+		move = -1;
+	}
+	else if (dblBlnkChk) {
+		move = 0;
+	}
+	else if (blnkChk) {
+		move = 1;
+	}
+	else if (cmbChk) {
+		move = 2;
+	}
+	else {
+		return false;
+	}
+
+	return move;
 }
 
 function seedBoard(maxVal) {
