@@ -16,7 +16,6 @@ $(document).keydown(function(e) {
 	var dir;
   switch(e.which) {
       case 37: // left
-			// $('.move').animate({"left": "-=80px"}, "fast");
 			move('left');
       break;
 
@@ -52,6 +51,7 @@ function move(input) {
 
 
 	array.forEach (function(value, key) {
+
 		switch(input) {
 			case 'right':
 				origPos = 15 - key;
@@ -160,6 +160,46 @@ function checks(orig, ref, wall) {
 	}
 
 	return move;
+}
+
+function genNextNum (array) {
+	var randPos,
+	maxVal = max(array),
+	addVal = 3,
+	boardValues = [1,2,3],
+	chance = Math.floor(Math.random()*100 + 1);
+	// console.log("Chance: " + chance);
+
+	lastNum = nextNum;
+
+	while ((addVal < maxVal) && (maxVal > 3)) {
+		addVal *= 2;
+		boardValues.push(addVal);
+	}
+
+	var randPos = Math.floor(Math.random() * (boardValues.length-4)) + 2;
+
+	if (chance <= blueRed) {
+		nextNum = 1;
+		blueRed -= 5;
+	}
+	else if (chance <= 60) {
+		nextNum = 2;
+		blueRed += 5;
+	}
+	else if (chance <= 95) {
+		nextNum = 3;
+	}
+	else {
+		nextNum = boardValues[randPos];
+	}
+	// console.log("BlueRed: " + blueRed);
+
+	// console.log("MaxVal: " + maxVal + " addVal: " + addVal + " Chance: " + chance + " ArrayMax: " + max(array));
+	// console.log(boardValues + " Count: " + boardValues.length);
+	// console.log("Array pos: " + randPos);
+	// console.log("NextNum: " + nextNum);
+	return nextNum;
 }
 
 function seedBoard(maxVal) {
@@ -278,46 +318,6 @@ function shuffleArray(array) {
 		array[j] = temp;
 	}
 	return array;
-}
-
-function genNextNum (array) {
-	var randPos,
-	maxVal = max(array),
-	addVal = 3,
-	boardValues = [1,2,3],
-	chance = Math.floor(Math.random()*100 + 1);
-	// console.log("Chance: " + chance);
-
-	lastNum = nextNum;
-
-	while ((addVal < maxVal) && (maxVal > 3)) {
-		addVal *= 2;
-		boardValues.push(addVal);
-	}
-
-	var randPos = Math.floor(Math.random() * (boardValues.length-4)) + 2;
-
-	if (chance <= blueRed) {
-		nextNum = 1;
-		blueRed -= 5;
-	}
-	else if (chance <= 60) {
-		nextNum = 2;
-		blueRed += 5;
-	}
-	else if (chance <= 95) {
-		nextNum = 3;
-	}
-	else {
-		nextNum = boardValues[randPos];
-	}
-	// console.log("BlueRed: " + blueRed);
-
-	// console.log("MaxVal: " + maxVal + " addVal: " + addVal + " Chance: " + chance + " ArrayMax: " + max(array));
-	// console.log(boardValues + " Count: " + boardValues.length);
-	// console.log("Array pos: " + randPos);
-	// console.log("NextNum: " + nextNum);
-	return nextNum;
 }
 
 function setUpBoard(){
