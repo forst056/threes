@@ -172,7 +172,7 @@ function genNextNum (arr) {
 	addVal = 3,
 	boardValues = [1,2,3],
 	chance = Math.floor(Math.random()*100 + 1);
-	console.log("Max Val: " + maxVal);
+	// console.log("Max Val: " + maxVal);
 
 	lastNum = nextNum;
 
@@ -197,12 +197,11 @@ function genNextNum (arr) {
 	else {
 		nextNum = boardValues[randPos];
 	}
-console.log("BlueRed: " + blueRed);
-
-	console.log("Chance: " + chance);
-console.log(boardValues + " Count: " + boardValues.length);
+	// console.log("BlueRed: " + blueRed);
+	// console.log("Chance: " + chance);
+	// console.log(boardValues + " Count: " + boardValues.length);
 	// console.log("Array pos: " + randPos);
-console.log("NextNum: " + nextNum);
+	// console.log("NextNum: " + nextNum);
 	return nextNum;
 }
 
