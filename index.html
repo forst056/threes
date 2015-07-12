@@ -37,15 +37,16 @@ $(document).keydown(function(e) {
 	// move(dir);
 });
 
-function max(array) {
-	var maxVal = Math.max.apply(null, array);
-	return maxVal;
+function max(arr) {
+	return Math.max.apply(null, arr);
 }
 
 function move(input) {
 	var origPos, refPos, wallCheck, origVal, refVal, newVal,
 	array = board,
 	tileEntryOptions = [];
+
+	console.log(array);
 
 	// console.log("Before: " + array);
 
@@ -92,7 +93,7 @@ function move(input) {
 		// Set the new val
 
 		switch (c) {
-			case -1:
+			case -1: // wall
 			newVal = origVal;
 			break;
 
@@ -119,7 +120,9 @@ function move(input) {
 		// Write to array
 
 		array[origPos] = newVal;
-		array[refPos] = refVal;
+		if (array[refPos]) {
+				array[refPos] = refVal;
+		}
 
 		// Set the tile entry possibilities
 
@@ -132,6 +135,7 @@ function move(input) {
 	var selectOption = Math.floor(Math.random() * tileEntryOptions.length);
 	var tileSelect = tileEntryOptions[selectOption];
 	array[tileSelect] = nextNum;
+	console.log(array);
 	nextNum = genNextNum(array);
 	board = array;
 	replaceArray(board);
@@ -162,13 +166,13 @@ function checks(orig, ref, wall) {
 	return move;
 }
 
-function genNextNum (array) {
+function genNextNum (arr) {
 	var randPos,
-	maxVal = max(array),
+	maxVal = max(arr),
 	addVal = 3,
 	boardValues = [1,2,3],
 	chance = Math.floor(Math.random()*100 + 1);
-	// console.log("Chance: " + chance);
+	console.log("Max Val: " + maxVal);
 
 	lastNum = nextNum;
 
@@ -193,12 +197,12 @@ function genNextNum (array) {
 	else {
 		nextNum = boardValues[randPos];
 	}
-	// console.log("BlueRed: " + blueRed);
+console.log("BlueRed: " + blueRed);
 
-	// console.log("MaxVal: " + maxVal + " addVal: " + addVal + " Chance: " + chance + " ArrayMax: " + max(array));
-	// console.log(boardValues + " Count: " + boardValues.length);
+	console.log("Chance: " + chance);
+console.log(boardValues + " Count: " + boardValues.length);
 	// console.log("Array pos: " + randPos);
-	// console.log("NextNum: " + nextNum);
+console.log("NextNum: " + nextNum);
 	return nextNum;
 }
 
