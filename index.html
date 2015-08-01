@@ -46,7 +46,7 @@ function move(input) {
 	array = board,
 	tileEntryOptions = [];
 
-	console.log(array);
+	// console.log(array);
 
 	// console.log("Before: " + array);
 
@@ -127,6 +127,7 @@ function move(input) {
 		// Set the tile entry possibilities
 
 		if (newVal === -1 && wallCheck) {
+			console.log(array);
 			tileEntryOptions.push(origPos); // add pos to tile entry options
 			array[origPos] = 0; // sanitize array of -1
 		}
@@ -135,7 +136,10 @@ function move(input) {
 	var selectOption = Math.floor(Math.random() * tileEntryOptions.length);
 	var tileSelect = tileEntryOptions[selectOption];
 	array[tileSelect] = nextNum;
-	console.log(array);
+	// console.log("Tile entry options: " + tileEntryOptions);
+	// console.log("Select option: " + selectOption);
+	// console.log("Tile select: " + tileSelect);
+	// console.log(array);
 	nextNum = genNextNum(array);
 	board = array;
 	replaceArray(board);
