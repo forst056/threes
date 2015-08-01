@@ -120,9 +120,7 @@ function move(input) {
 		// Write to array
 
 		array[origPos] = newVal;
-		if (array[refPos]) {
-				array[refPos] = refVal;
-		}
+		array[refPos] = refVal;
 
 		// Set the tile entry possibilities
 
@@ -165,6 +163,7 @@ function checks(orig, ref, wall) {
 	}
 	else {
 		return false;
+		console.log("something went wrong");
 	}
 
 	return move;
