@@ -16,25 +16,25 @@ $(document).keydown(function(e) {
 	var dir;
   switch(e.which) {
       case 37: // left
-			move('left');
+			dri = 'left';
       break;
 
       case 38: // up
-			move('up');
+			dir = 'up';
       break;
 
       case 39: // right
-			move('right');
+			dir = 'right';
       break;
 
       case 40: // down
-			move('down');
+			dir = 'down';
       break;
 
       default: return; // exit this handler for other keys
   }
   e.preventDefault(); // prevent the default action (scroll / move caret)
-	// move(dir);
+	move(dir);
 });
 
 function max(arr) {
@@ -88,6 +88,7 @@ function move(input) {
 		refVal = array[refPos];
 
 		// Perform checks
+
 		var c = checks(origVal, refVal, wallCheck);
 
 		// Set the new val
