@@ -16,7 +16,7 @@ $(document).keydown(function(e) {
 	var dir;
   switch(e.which) {
       case 37: // left
-			dri = 'left';
+			dir = 'left';
       break;
 
       case 38: // up
@@ -170,41 +170,83 @@ function checks(orig, ref, wall) {
 }
 
 function genNextNum (arr) {
-	var randPos,
-	maxVal = max(arr),
-	addVal = 3,
-	boardValues = [1,2,3],
-	chance = Math.floor(Math.random()*100 + 1);
-	// console.log("Max Val: " + maxVal);
 
-	lastNum = nextNum;
+	var boardValues = getBoardVals(arr);
+	var nextNum = randBoardVal(arr, boardValues);
+
+	// var randPos = Math.floor(Math.random() * (boardValues.length-4)) + 2;
+
+	// console.log("BlueRed: " + blueRed);
+	// console.log("Chance: " + chance);
+	// console.log(boardValues + " Count: " + boardValues.length);
+	// console.log("Array pos: " + randPos);
+	// console.log("NextNum: " + nextNum);
+	return nextNum;
+}
+
+function getBoardVals(arr) {
+	var	maxVal = max(arr),
+	addVal = 3,
+	boardValues = [1,2,3];
+	//chance = Math.floor(Math.random()*100 + 1);
+	// console.log("Max Val: " + maxVal);
 
 	while ((addVal < maxVal) && (maxVal > 3)) {
 		addVal *= 2;
 		boardValues.push(addVal);
 	}
 
-	var randPos = Math.floor(Math.random() * (boardValues.length-4)) + 2;
+	return boardValues;
+}
 
-	if (chance <= blueRed) {
-		nextNum = 1;
-		blueRed -= 5;
+function randBoardVal(arr, arr2) {
+	var reds = 0, blues = 0;
+
+	arr.forEach (function(key,val) {
+		if (val=1) {
+			blues++;
+		}
+		else if (val=2) {
+			reds++;
+		}
+	});
+
+	console.log("Reds: " + reds + " Blues: " + blues);
+
+	var nextnum,
+			chance = random(1,100);
+
+	if (chance <= 50) {
+		if (reds > 3) {
+			nextNum = 1;
+		}
+		else if (blues > 3) {
+			nextNum = 2;
+		}
+		else {
+			var diff = reds - blues;
+			var x = (50 / (reds + blues)) * Math.abs(diff);
+			if (diff > 0) {
+				nextNum = (chance < x) ? 1 : 2;
+			}
+			else if (diff < 0) {
+				nextNum = (chance < x) ? 2 : 1;
+			}
+			else {
+				nextNum = (chance < 25) ? 1 : 2;
+			}
+		}
 	}
-	else if (chance <= 60) {
-		nextNum = 2;
-		blueRed += 5;
-	}
+
 	else if (chance <= 95) {
 		nextNum = 3;
 	}
+
 	else {
-		nextNum = boardValues[randPos];
+		var randPos = random(3, arr2.length - 3);
+		nextNum = arr[randPos];
 	}
-	// console.log("BlueRed: " + blueRed);
-	// console.log("Chance: " + chance);
-	// console.log(boardValues + " Count: " + boardValues.length);
-	// console.log("Array pos: " + randPos);
-	// console.log("NextNum: " + nextNum);
+
 	return nextNum;
 }
 
@@ -338,6 +380,11 @@ function setUpBoard(){
 	}
 	document.write("</div>");
 	seedBoard(48);
+}
+
+function random (low,high) {
+	var diff = high - low + 1;
+	return Math.floor((Math.random() * diff)) + low;
 }
 
 </script>
